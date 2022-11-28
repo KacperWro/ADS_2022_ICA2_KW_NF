@@ -1,0 +1,12 @@
+      BinaryTree t1();
+
+			Student s1("PVE96HEN8UP", 58, "Alexis", "Stone", "Male", "09/07/1999", "neque.in.ornare@icloud.net", "(507) 783 - 1414", "636701",
+				"136-1265 Cras St.", "Ireland", "11/07/2023", "10:54", "11 / 01 / 2012", "$98.42");
+			Key k1(s1.getUserId(), s1.getEmail(), s1.getPhone());
+
+			TNode<Student> newNode(k1, s1);
+			t1.insert(newNode);
+
+
+			Assert::AreEqual(1, 4);
+			
