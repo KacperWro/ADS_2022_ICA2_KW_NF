@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include "TNode.h"
 
 int main()
 {

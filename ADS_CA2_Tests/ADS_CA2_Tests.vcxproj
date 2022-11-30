@@ -156,6 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\ADS_CA2_Tree\ADS_CA2_Tree.cpp" />
     <ClCompile Include="ADS_CA2_Tests.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -165,6 +166,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\ADS_CA2_Tree\BinaryTree.h" />
+    <ClInclude Include="..\ADS_CA2_Tree\Student.h" />
+    <ClInclude Include="..\ADS_CA2_Tree\StudentKey.h" />
+    <ClInclude Include="..\ADS_CA2_Tree\TNode.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
