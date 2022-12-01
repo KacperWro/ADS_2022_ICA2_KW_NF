@@ -18,6 +18,10 @@ private:
 	TNode* pLeft, * pRight;
 
 public:
+	TNode() {     // Constructor
+		cout << "Hello World!";
+	}
+
 	bool insert(K key, E data) {
 		return false;
 	}

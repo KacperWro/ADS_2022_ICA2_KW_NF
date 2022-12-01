@@ -41,11 +41,10 @@ public:
 		this->last_log_on_time = TimeHHMM(70, 70);
 		this->joined_on = Date(80, 80, 8000);
 		this->account_credit = "";
+		this->address = "";
 	}
 
-	Student(string user_id, int current_ranking, string first_name, string surname, string gender, Date date_of_birth, string email,
-		string phone, string postcode, string country, Date last_log_on_date, TimeHHMM last_log_on_time, Date joined_on, string account_credit) {
-
+		
 		this->user_id = user_id;
 		this->current_ranking = current_ranking;
 		this->first_name = first_name;
@@ -60,6 +59,7 @@ public:
 		this->last_log_on_time = last_log_on_time;
 		this->joined_on = joined_on;
 		this->account_credit = account_credit;
+		this->address = address;
 	}
 
 
@@ -79,7 +79,7 @@ public:
 	string getAccount_credit() const { return this->account_credit; }
 
 
-
+	
 	bool operator==(const Student& student)
 	{
 		return this->user_id == student.user_id
