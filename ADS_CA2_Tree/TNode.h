@@ -1,5 +1,5 @@
 #pragma once
-
+using namespace std;
 template <typename K, typename E>
 class TNode {
 private:

@@ -2,6 +2,7 @@
 #include <ostream>
 #include <string>
 #include <stdlib.h>
+#include <iostream>
 
 using namespace std;
 
@@ -13,15 +14,15 @@ using namespace std;
 class Date {
 #pragma region Fields
 	//pick data types that minimize space requirements
-	unsigned short int day;		//2 bytes
-	unsigned short int month;	//2 bytes
-	unsigned int year;			//4 bytes
+	int day;		//2 bytes
+	int month;	//2 bytes
+	int year;			//4 bytes
 #pragma endregion
 
 public:
 
 #pragma region Constructors
-	Date(unsigned short int day, unsigned short int month, unsigned int year)
+	Date(int day, int month, int year)
 		: day(day), month(month), year(year) {}
 
 	Date() : day(80), month(80), year(8000) {}
@@ -29,10 +30,11 @@ public:
 	//takes a string and parses out data - (doesnt seem to work yet)
 	Date(string dateAsString) {
 		string delimiter = "/";
+		dateAsString = dateAsString + "/";
 
-		unsigned short int dayExtract = 0;
-		unsigned short int monthExtract = 0;
-		unsigned int yearExtract = 0;
+		int dayExtract = 0;
+		int monthExtract = 0;
+		int yearExtract = 0;
 
 		size_t pos = 0;
 		size_t count = 0;
@@ -42,25 +44,34 @@ public:
 			if (count == 0) {
 				dayExtract = stoi(dateAsString.substr(0, pos));
 				dateAsString.erase(0, pos + delimiter.length());
+				cout << "Day Extract:" << dayExtract << endl;
 				count++;
 			}
 			else if (count == 1) {
 				monthExtract = stoi(dateAsString.substr(0, pos));
 				dateAsString.erase(0, pos + delimiter.length());
+				cout << "Month Extract:" << monthExtract << endl;
 				count++;
 			}
 			else if (count == 2) {
 				yearExtract = stoi(dateAsString.substr(0, pos));
 				dateAsString.erase(0, pos + delimiter.length());
+				cout << "Year Extract:" << yearExtract << endl;
 				count++;
+				
 			}
 			else {
 				throw 86;
 			}
 		}
-		this->day = dayExtract;
-		this->month = monthExtract;
-		this->year = yearExtract;
+
+		//cout << "Month Extract:" << monthExtract << endl;
+		//cout << "Month Extract type:" << typeof(monthExtract) << endl;
+
+
+		day = dayExtract;
+		month = monthExtract;
+		year = yearExtract;
 
 	}
 

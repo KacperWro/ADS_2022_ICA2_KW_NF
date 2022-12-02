@@ -27,6 +27,10 @@ int main()
 	cout << endl << "demoCSVToObject()..........." << endl;
 	demoCSVToObject();*/
 
+	Date x = Date("11/11/2005");
+
+	cout << x.getYear();
+
 	return 0;
 }
 

@@ -156,7 +156,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\ADS_CA2_Tree\ADS_CA2_Tree.cpp" />
     <ClCompile Include="ADS_CA2_Tests.cpp" />
     <ClCompile Include="ADS_CA2_Tree.cpp" />
     <ClCompile Include="pch.cpp">

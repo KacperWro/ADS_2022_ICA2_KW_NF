@@ -7,7 +7,7 @@
 #include "../ADS_CA2_Tree/Date.h"
 #include "../ADS_CA2_Tree/Time.h"
 #include <sstream>
-
+using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace ADSCA2Tests
@@ -19,7 +19,7 @@ namespace ADSCA2Tests
 		TEST_METHOD(TestMethod1)
 		{
 			Date testDate = Date(11, 10, 2000);
-			unsigned short int dayExtracted = testDate.getDay();
+			int dayExtracted = testDate.getDay();
 			string actualDay = "11";
 
 
@@ -37,7 +37,7 @@ namespace ADSCA2Tests
 		TEST_METHOD(TestMethod2)
 		{
 			Date testDate = Date(11, 10, 2000);
-			unsigned short int monthExtracted = testDate.getMonth();
+			int monthExtracted = testDate.getMonth();
 			string actualMonth = "10";
 
 			stringstream extractedMonth;
@@ -51,7 +51,7 @@ namespace ADSCA2Tests
 		TEST_METHOD(TestMethod3)
 		{
 			Date testDate = Date(11, 10, 2000);
-			unsigned int yearExtracted = testDate.getYear();
+			int yearExtracted = testDate.getYear();
 			string actualYear = "2000";
 
 			stringstream extractedYear;
@@ -65,7 +65,7 @@ namespace ADSCA2Tests
 		TEST_METHOD(TestMethod4)
 		{
 			Date testDate = Date("07/11/2005");
-			unsigned int yearExtracted = testDate.getYear();
+			int yearExtracted = testDate.getYear();
 			string actualYear = "2005";
 
 			stringstream extractedYear;
@@ -75,6 +75,20 @@ namespace ADSCA2Tests
 			extractedYear >> finYear;
 
 			Assert::AreEqual(actualYear, finYear);
+		}
+		TEST_METHOD(TestMethod5)
+		{
+			Date testDate = Date("07/11/2005");
+			int monthExtracted = testDate.getMonth();
+			string actualMonth = "11";
+
+			stringstream extractedMonth;
+			extractedMonth << monthExtracted;
+
+			string finMonth;
+			extractedMonth >> finMonth;
+
+			Assert::AreEqual(actualMonth, finMonth);
 		}
 	};
 }
