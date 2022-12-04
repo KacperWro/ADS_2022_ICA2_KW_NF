@@ -77,6 +77,23 @@ public:
 	Date getJoined_on() const { return this->joined_on; }
 	string getAccount_credit() const { return this->account_credit; }
 
+
+	void setUser_id(string user_id) { this->user_id = user_id; }
+	void setCurrent_ranking(int current_ranking) { this->current_ranking = current_ranking; }
+	void setFirst_name(string first_name) { this->first_name = first_name; }
+	void setSurname(string surname) { this->surname = surname; }
+	void setGender(string gender) { this->gender = gender; }
+	void setDate_of_birth(Date date_of_birth) { this->date_of_birth = date_of_birth; }
+	void setEmail(string email) { this->email = email; }
+	void setPhone(string phone) { this->phone = phone; }
+	void setPostcode(string postcode) { this->postcode = postcode; }
+	void setCountry(string country) { this->country = country; }
+	void setLast_log_on_date(Date last_log_on_date) { this->last_log_on_date = last_log_on_date; }
+	void setLast_log_on_time(TimeHHMM last_log_on_time) { this->last_log_on_time = last_log_on_time; }
+	void setJoined_on(Date joined_on) { this->joined_on = joined_on; }
+	void setAccount_credit(string account_credit) { this->account_credit = account_credit; }
+
+
 	bool operator==(const Student& student)
 	{
 		return this->user_id == student.user_id

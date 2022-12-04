@@ -43,8 +43,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="data_10000.csv" />
-    <None Include="data_100000.csv" />
-    <None Include="data_1000.csv" />
+    <None Include="..\..\..\..\OneDrive - Dundalk Institute of Technology\Algs + Data\data_1000.csv" />
   </ItemGroup>
 </Project>
