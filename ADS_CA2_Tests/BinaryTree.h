@@ -22,7 +22,7 @@ public:
 	// do we provide both a key and a full object? for example, use the key's hash for navigation
 	// and then attach the data object to the tree?
 
-	E* insert(K key, E dataObj) {
+	bool insert(K key, E dataObj) {
 		return nullptr;
 	}
 
