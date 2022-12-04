@@ -30,26 +30,50 @@ public:
 		
 	}
 
+	~TNode() { 
+		cout << "Destructor called" << endl;
+		delete this->pLeft; 
+		delete this->pRight;
+		delete this->parent;
+	}
+
+	int count()
+	{
+		int c = 1;
+		if (pLeft != nullptr)
+		{
+			//cout << "\nHash: " << pLeft->getKey();
+			c += pLeft->count();
+		}
+		if (pRight != nullptr)
+		{
+			//cout << "\nHash: " << pRight->getKey();
+			c += pRight->count();
+		}
+		return c;
+	}
+
+
 	bool insert(K key, E data) {
 		
-		if (key.getUser_id() == this->key.getUser_id())
+		if (key == this->key)
 		{
-			cout << "id is the same" << endl;
+			//cout << "id is the same" << endl;
 			return false;
 		}
-		else if (key.getUser_id() < this->key.getUser_id())
+		else if (key < this->key)
 		{
-			cout << "else if statement" << endl;
+			//cout << "else if statement" << endl;
 			if (pLeft == nullptr)
 			{
 				pLeft = new TNode<K, E>(key, data);
 				pLeft->parent = this;
-				cout << "inserted into left child" << endl;
+				//cout << "inserted into left child" << endl;
 				return true;
 			}
 			else
 			{
-				cout << "left child is not null" << endl;
+				//cout << "left child is not null" << endl;
 				pLeft->insert(key, data);
 			}
 
@@ -57,34 +81,38 @@ public:
 		}
 		else
 		{
-			cout << "else statement" << endl;
+			//cout << "else statement" << endl;
 			if (pRight == nullptr)
 			{
 				pRight = new TNode<K, E>(key, data);
 				pRight->parent = this;
-				cout << "inserted into right child" << endl;
+				//cout << "inserted into right child" << endl;
 				return true;
 			}
 			else
 			{
-				cout << "right child is not null" << endl;
+				//cout << "right child is not null" << endl;
 				pRight->insert(key, data);
 			}
 
 		}
 	}
 
-	void setData(E data) { this->data = data; }
 	E getData() const { return this->data; }
+	K getKey() const { return this->key;  }
 	TNode* getpLeft() const { return this->pLeft; }
 	TNode* getpRight() const { return this->pRight; }
 	TNode* getParent() const { return this->parent; }
+	void setPLeft(TNode* newLeft) { this->pLeft = newLeft; }
+	void setPRight(TNode* newRight) { this->pRight = newRight; }
+	void setData(E data) { this->data = data; }
 
-	std::size_t hash() const
+
+	/*std::size_t hash() const
 	{
 		size_t hash = std::hash<string>()(this->key.getUser_id())
 			+ 101 * std::hash<string>()(this->key.getFirst_name())
 			+ 149 * std::hash<string>()(this->key.getEmail());
 		return hash;
-	}
+	}*/
 };

@@ -15,7 +15,7 @@ template <typename K, typename E>
 class BinaryTree
 {
 public:
-	TNode<StudentKey, Student>* root;
+	TNode<size_t, Student>* root;
 
 	BinaryTree()
 	{
@@ -36,20 +36,100 @@ public:
 		return nullptr;
 	}*/
 
+	int count()
+	{
+		if (root == nullptr)
+			return 0;
+		return root->count();
+	}
+
 	void insert(K key, E data)
 	{
 		if (root == nullptr)
 		{
-			cout << "\nroot pointer is null" << endl;
-			root = new TNode<StudentKey, Student>(key, data);
+			//cout << "\nroot pointer is null" << endl;
+			root = new TNode<size_t, Student>(key, data);
 		}
 		else
 		{
-			cout << "\nroot pointer is not null" << endl;
+			//cout << "\nroot pointer is not null" << endl;
 			root->insert(key, data);
 		}
 	}
 
+
+	bool remove(K key)
+	{
+		TNode<size_t, Student>* toBeRemoved = root;
+		TNode<size_t, Student>* parent = nullptr;
+		bool found = false;
+
+		while (!found && toBeRemoved != nullptr)
+		{
+			if (toBeRemoved->getKey() == key)
+			{
+				found = true;
+			}
+			else
+			{
+				parent = toBeRemoved;
+				if (toBeRemoved->getKey() > key)
+				{
+					toBeRemoved = toBeRemoved->getpLeft();
+				}
+				else
+				{
+					toBeRemoved = toBeRemoved->getpRight();
+				}
+			}
+		}
+		if (!found)
+			return false;
+
+		if (toBeRemoved->getpLeft() == nullptr || toBeRemoved->getpRight() == nullptr)
+		{
+			TNode<size_t, Student>* newChild;
+			if (toBeRemoved->getpLeft() == nullptr)
+			{
+				newChild = toBeRemoved->getpLeft();
+			}
+			else
+			{
+				newChild = toBeRemoved->getpLeft();
+			}
+			if (parent == nullptr)
+			{
+				root = newChild;
+			}
+			else if (parent->getpLeft() == toBeRemoved)
+			{
+				parent->setPLeft(newChild);
+			}
+			else
+			{
+				parent->setPRight(newChild);
+			}
+			return true;
+		}
+
+		TNode<size_t, Student>* smallestParent = toBeRemoved;
+		TNode<size_t, Student>* smallest = toBeRemoved->getpRight();
+		while (smallest->getpLeft() != nullptr)
+		{
+			smallestParent = smallest;
+			smallest = smallest->getpLeft();
+		}
+		toBeRemoved->setData(smallest->getData());
+		if (smallestParent == toBeRemoved)
+		{
+			smallestParent->setPRight(smallest->getpRight());
+		}
+		else
+		{
+			smallestParent->setPLeft(smallest->getpLeft());
+		}
+
+	}
 
 
 	// Pretty sure this one would require a search first, then a recursive deletion algorithm
@@ -60,9 +140,9 @@ public:
 	//	return false;
 	//}
 
-	//// Return a string or make this one as an ostream???
-	//string printTree(size_t depth) {
-	//	string compileStr = "";
-	//	return compileStr;
-	//}
+	// return a string or make this one as an ostream???
+	/*string printTree(size_t depth) {
+		string compilestr = "";
+		return compilestr;
+	}*/
 };

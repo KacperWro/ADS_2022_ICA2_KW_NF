@@ -15,7 +15,7 @@ int main()
 {
 	try {
 		Date x = Date("11/11/2005");
-		cout << "Year from main()" << x.getYear();
+		cout << "Year from main()" << x.getYear() << endl;
 	}
 	catch(int x) {
 		cout << "Something went wrong with initialisation. ERROR CODE: " << x << endl;
@@ -23,7 +23,7 @@ int main()
 	
 	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
 
-	BinaryTree<StudentKey, Student> newTree;
+	BinaryTree<size_t, Student> newTree;
 
 	for (int i = 1; i < delimitedRows.size(); i++) {
 		string timeDelimiter = ":";
@@ -50,11 +50,12 @@ int main()
 
 		StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
 		/*TNode<StudentKey, Student> newNode(newKey, newStudent);*/
-
-		newTree.insert(newKey, newStudent);
+		newTree.insert(newKey.getHash(), newStudent);
 
 	}
-
-
+	cout << "\nCount: " << newTree.count() << endl;
+	cout << "\nFound?: " << newTree.remove(18443049407160319861) << endl;
+	cout << "\nFound?: " << newTree.remove(16290277276361596134) << endl;
+	cout << "\nCount: " << newTree.count() << endl;
 
 }
