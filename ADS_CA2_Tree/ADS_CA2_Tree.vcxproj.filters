@@ -42,4 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="data_10000.csv" />
+    <None Include="data_100000.csv" />
+    <None Include="data_1000.csv" />
+  </ItemGroup>
 </Project>

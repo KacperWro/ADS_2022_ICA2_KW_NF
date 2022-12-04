@@ -6,7 +6,7 @@
 
 
 using namespace std;
-class Student
+class StudentKey
 {
 private:
 	string user_id;
@@ -14,13 +14,13 @@ private:
 	string email;
 
 public:
-	Student() {
+	StudentKey() {
 		this->user_id = "";
 		this->first_name = "";
 		this->email = "";
 	}
 
-	Student(string user_id, string first_name, string email) {
+	StudentKey(string user_id, string first_name, string email) {
 		this->user_id = user_id;
 		this->first_name = first_name;
 		this->email = email;
@@ -30,11 +30,11 @@ public:
 	string getFirst_name() const { return this->first_name; }
 	string getEmail() const { return this->email; }
 
-	bool operator==(const Student& student)
+	bool operator==(const StudentKey& studentKey)
 	{
-		return this->user_id == student.user_id
-			&& this->first_name == student.first_name
-			&& this->email == student.email;
+		return this->user_id == studentKey.user_id
+			&& this->first_name == studentKey.first_name
+			&& this->email == studentKey.email;
 	}
 
 
