@@ -44,19 +44,19 @@ public:
 			if (count == 0) {
 				dayExtract = stoi(dateAsString.substr(0, pos));
 				dateAsString.erase(0, pos + delimiter.length());
-				cout << "Day Extract:" << dayExtract << endl;
+				//cout << "Day Extract:" << dayExtract << endl;
 				count++;
 			}
 			else if (count == 1) {
 				monthExtract = stoi(dateAsString.substr(0, pos));
 				dateAsString.erase(0, pos + delimiter.length());
-				cout << "Month Extract:" << monthExtract << endl;
+				//cout << "Month Extract:" << monthExtract << endl;
 				count++;
 			}
 			else if (count == 2) {
 				yearExtract = stoi(dateAsString.substr(0, pos));
 				dateAsString.erase(0, pos + delimiter.length());
-				cout << "Year Extract:" << yearExtract << endl;
+				//cout << "Year Extract:" << yearExtract << endl;
 				count++;
 				
 			}
@@ -64,10 +64,6 @@ public:
 				throw 86;
 			}
 		}
-
-		//cout << "Month Extract:" << monthExtract << endl;
-		//cout << "Month Extract type:" << typeof(monthExtract) << endl;
-
 
 		day = dayExtract;
 		month = monthExtract;
