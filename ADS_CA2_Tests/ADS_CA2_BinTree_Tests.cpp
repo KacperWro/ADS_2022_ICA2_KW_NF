@@ -6,6 +6,9 @@
 #include "../ADS_CA2_Tree/StudentKey.h"
 #include "../ADS_CA2_Tree/Date.h"
 #include "../ADS_CA2_Tree/Time.h"
+#include "../ADS_CA2_Tree/Utilities.h"
+#include <vector>
+#include <iostream>
 #include <sstream>
 using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -49,16 +52,96 @@ namespace ADSCA2BinTreeTests
 
 		TEST_METHOD(TestInsertNovelNode)
 		{
+			/*vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
+
+			string timeDelimiter = ":";
+
+
+			Date finalDob(delimitedRows[100][5]);
+
+			//LAST LOG ON DATE
+			Date finalLastLogDate(delimitedRows[100][10]);
+
+			//LAST LOG ON TIME
+			string finalLastLogTime = delimitedRo ws[100][11];
+			unsigned short int lastHours = stoi(finalLastLogTime.substr(0, finalLastLogTime.find(timeDelimiter)));
+			finalLastLogTime = finalLastLogTime.substr(3);
+			unsigned short int lastMinutes = stoi(finalLastLogTime.substr(0, finalLastLogTime.find(timeDelimiter)));
+
+			TimeHHMM lastLogOnTime(lastHours, lastMinutes);
+
+			//JOINED ON
+			Date lastJoinedOn(delimitedRows[100][12]);
+
+			Student newerStudent(delimitedRows[100][0], stoi(delimitedRows[100][1]), delimitedRows[100][2], delimitedRows[100][3], delimitedRows[100][4], finalDob,
+				delimitedRows[100][6], delimitedRows[100][7], delimitedRows[100][8], delimitedRows[100][9], finalLastLogDate, lastLogOnTime, lastJoinedOn, delimitedRows[100][13]);
+
+			StudentKey newerKey(newerStudent.getUser_id(), newerStudent.getFirst_name(), newerStudent.getEmail());
+			TNode<StudentKey, Student> newNode(newerKey, newerStudent);
+			bool truth = newNode.insert(newerKey, newerStudent);
+			cout << truth;
+
+			cout << "\n" << newNode.getData().getEmail() << endl;
+			TNode<StudentKey, Student>* newestNode = newNode.getpRight();
+			cout << "\n" << newestNode->getData().getEmail() << endl;*/
+
+			//Assert::IsTrue(truth);
+
 
 		}
 
 		/*
-		Test that a node gets rejected since it already exists in the tree
-		*/
-
+			Test that a node gets rejected since it already exists in the tree
+			*/
 		TEST_METHOD(TestInsertDuplicateNode)
 		{
+			/*vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
 
+			string timeDelimiter = ":";
+
+
+			Date finalDob(delimitedRows[100][5]);
+
+			//LAST LOG ON DATE
+			Date finalLastLogDate(delimitedRows[100][10]);
+
+			//LAST LOG ON TIME
+			string finalLastLogTime = delimitedRo ws[100][11];
+			unsigned short int lastHours = stoi(finalLastLogTime.substr(0, finalLastLogTime.find(timeDelimiter)));
+			finalLastLogTime = finalLastLogTime.substr(3);
+			unsigned short int lastMinutes = stoi(finalLastLogTime.substr(0, finalLastLogTime.find(timeDelimiter)));
+
+			TimeHHMM lastLogOnTime(lastHours, lastMinutes);
+
+			//JOINED ON
+			Date lastJoinedOn(delimitedRows[100][12]);
+
+			Student newerStudent(delimitedRows[100][0], stoi(delimitedRows[100][1]), delimitedRows[100][2], delimitedRows[100][3], delimitedRows[100][4], finalDob,
+				delimitedRows[100][6], delimitedRows[100][7], delimitedRows[100][8], delimitedRows[100][9], finalLastLogDate, lastLogOnTime, lastJoinedOn, delimitedRows[100][13]);
+
+			StudentKey newerKey(newerStudent.getUser_id(), newerStudent.getFirst_name(), newerStudent.getEmail());
+			TNode<StudentKey, Student> newNode(newerKey, newerStudent);
+			bool truth = newNode.insert(newerKey, newerStudent);
+			cout << truth;
+
+			cout << "\n" << newNode.getData().getEmail() << endl;
+			TNode<StudentKey, Student>* newestNode = newNode.getpRight();
+			cout << "\n" << newestNode->getData().getEmail() << endl;
+
+
+
+
+			Student dupeStudent(delimitedRows[100][0], stoi(delimitedRows[100][1]), delimitedRows[100][2], delimitedRows[100][3], delimitedRows[100][4], finalDob,
+				delimitedRows[100][6], delimitedRows[100][7], delimitedRows[100][8], delimitedRows[100][9], finalLastLogDate, lastLogOnTime, lastJoinedOn, delimitedRows[100][13]);
+
+			StudentKey dupeKey(dupeStudent.getUser_id(), dupeStudent.getFirst_name(), dupeStudent.getEmail());
+			TNode<StudentKey, Student> dupeNode(dupeKey, dupeStudent);
+			bool dupetruth = dupeNode.insert(dupeKey, dupeStudent);
+			
+
+			Assert::IsFalse(dupetruth);*/
+
+			
 		}
 
 		/*

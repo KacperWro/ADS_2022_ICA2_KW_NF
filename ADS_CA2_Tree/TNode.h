@@ -18,7 +18,7 @@ private:
 	/// <summary>
 	/// Pointers to the two kids. Go left if new data key < key for this node, else go right
 	/// </summary>
-	TNode* pLeft, * pRight, *parent;
+	TNode* pLeft, * pRight, * parent;
 
 public:
 	TNode(K key, E data) {     // Constructor
@@ -27,17 +27,17 @@ public:
 	}
 
 	TNode() {
-		
+
 	}
 
 	bool insert(K key, E data) {
-		
-		if (key.getUser_id() == this->key.getUser_id())
+
+		if (key.hash() == this->key.hash())
 		{
-			cout << "id is the same" << endl;
+			cout << "keys are the same" << endl;
 			return false;
 		}
-		else if (key.getUser_id() < this->key.getUser_id())
+		else if (key.hash() < this->key.hash())
 		{
 			cout << "else if statement" << endl;
 			if (pLeft == nullptr)
