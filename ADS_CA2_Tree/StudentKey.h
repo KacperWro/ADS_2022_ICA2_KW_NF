@@ -43,7 +43,13 @@ public:
 			&& this->email == studentKey.email;
 	}
 
-
+	std::size_t hash() const
+	{
+		size_t hash = std::hash<string>()(this->user_id)
+			+ 101 * std::hash<string>()(this->first_name)
+			+ 149 * std::hash<string>()(this->email);
+		return hash;
+	}
 
 
 };
