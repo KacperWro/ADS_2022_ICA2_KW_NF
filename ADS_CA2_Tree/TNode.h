@@ -28,4 +28,12 @@ public:
 
 	void setData(E data) { this->data = data; }
 	E getData() const { return this->data; }
+
+	std::size_t hash() const
+	{
+		size_t hash = std::hash<string>()(this->key.getUser_id())
+			+ 101 * std::hash<string>()(this->key.getFirst_name())
+			+ 149 * std::hash<string>()(this->key.getEmail());
+		return hash;
+	}
 };
