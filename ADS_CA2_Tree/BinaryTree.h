@@ -58,6 +58,34 @@ public:
 	}
 
 
+	TNode<size_t, Student>* search(K key) {
+		TNode<size_t, Student>* toBeFound = root;
+		TNode<size_t, Student>* parent = nullptr;
+		bool found = false;
+
+		while (!found && toBeFound != nullptr)
+		{
+			if (toBeFound->getKey() == key)
+			{
+				return toBeFound;
+			}
+			else
+			{
+				parent = toBeFound;
+				if (toBeFound->getKey() > key)
+				{
+					toBeFound = toBeFound->getpLeft();
+				}
+				else
+				{
+					toBeFound = toBeFound->getpRight();
+				}
+			}
+		}
+		return nullptr;
+	}
+
+
 	bool remove(K key)
 	{
 		TNode<size_t, Student>* toBeRemoved = root;
@@ -91,7 +119,7 @@ public:
 			TNode<size_t, Student>* newChild;
 			if (toBeRemoved->getpLeft() == nullptr)
 			{
-				newChild = toBeRemoved->getpLeft();
+				newChild = toBeRemoved->getpRight();
 			}
 			else
 			{

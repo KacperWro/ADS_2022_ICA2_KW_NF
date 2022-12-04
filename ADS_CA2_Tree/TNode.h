@@ -27,7 +27,9 @@ public:
 	}
 
 	TNode() {
-		
+		this->pLeft = nullptr;
+		this->pRight = nullptr;
+		this->parent = nullptr;
 	}
 
 	~TNode() { 
@@ -106,6 +108,27 @@ public:
 	void setPLeft(TNode* newLeft) { this->pLeft = newLeft; }
 	void setPRight(TNode* newRight) { this->pRight = newRight; }
 	void setData(E data) { this->data = data; }
+
+	void printNode() {
+		Student student = this->getData();
+
+		cout << "*******************************************************" << endl;
+		cout << "User ID            : " << student.getUser_id() << endl;
+		cout << "Current Ranking    : " << student.getCurrent_ranking() << endl;
+		cout << "First Name         : " << student.getFirst_name() << endl;
+		cout << "Surname            : " << student.getSurname() << endl;
+		cout << "Gender             : " << student.getGender() << endl;
+		cout << "Date of Birth      : " << student.getDate_of_birth() << endl;
+		cout << "Email              : " << student.getEmail() << endl;
+		cout << "Phone Number       : " << student.getPhone() << endl;
+		cout << "Postcode           : " << student.getPostcode() << endl;
+		cout << "Country            : " << student.getCountry() << endl;
+		cout << "Date last logged on: " << student.getLast_log_on_date() << endl;
+		cout << "Time last logged on: " << student.getLast_log_on_time() << endl;
+		cout << "Date joined on     : " << student.getJoined_on() << endl;
+		cout << "Account Credit     : " << student.getAccount_credit() << endl;
+		cout << "*******************************************************" << endl;
+	}
 
 
 	/*std::size_t hash() const

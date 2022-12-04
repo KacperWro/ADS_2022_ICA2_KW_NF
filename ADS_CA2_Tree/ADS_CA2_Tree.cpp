@@ -54,8 +54,22 @@ int main()
 
 	}
 	cout << "\nCount: " << newTree.count() << endl;
-	cout << "\nFound?: " << newTree.remove(18443049407160319861) << endl;
-	cout << "\nFound?: " << newTree.remove(16290277276361596134) << endl;
+	cout << "\nFound and deleted?: " << newTree.remove(8804579525034649440) << endl;
+	cout << "\nFound and deleted?: " << newTree.remove(18443049407160319861) << endl;
+	//cout << "\nFound and deleted?: " << newTree.remove(16290277276361596134) << endl;
 	cout << "\nCount: " << newTree.count() << endl;
+
+
+	TNode<size_t, Student>* myStudent = newTree.search(16290277276361596134);
+
+	if (myStudent == nullptr) {
+		cout << "Student not found" << endl;
+	}
+	else
+	{
+		myStudent->printNode();
+	}
+
+
 
 }
