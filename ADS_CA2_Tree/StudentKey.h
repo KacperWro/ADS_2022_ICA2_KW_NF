@@ -1,6 +1,7 @@
 #pragma once
 #include <ostream>
 #include <string>
+#include "Student.h"
 
 
 using namespace std;
@@ -24,6 +25,13 @@ public:
 		this->email = email;
 	}
 
+	StudentKey(Student& t)
+	{
+		this->user_id = t.getUser_id();
+		this->first_name = t.getFirst_name();
+		this->email = t.getEmail();
+	}
+
 	string getUser_id() const { return this->user_id; }
 	string getFirst_name() const { return this->first_name; }
 	string getEmail() const { return this->email; }
@@ -34,6 +42,7 @@ public:
 			&& this->first_name == studentKey.first_name
 			&& this->email == studentKey.email;
 	}
+
 
 
 

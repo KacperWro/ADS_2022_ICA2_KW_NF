@@ -20,7 +20,7 @@ int main()
 		cout << "Something went wrong with initialisation. ERROR CODE: " << x << endl;
 	}
 	
-	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
+	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
 
 	for (int i = 1; i < delimitedRows.size(); i++) {
 		string timeDelimiter = ":";

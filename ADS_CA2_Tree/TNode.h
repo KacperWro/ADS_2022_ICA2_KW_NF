@@ -79,4 +79,12 @@ public:
 	TNode* getpLeft() const { return this->pLeft; }
 	TNode* getpRight() const { return this->pRight; }
 	TNode* getParent() const { return this->parent; }
+
+	std::size_t hash() const
+	{
+		size_t hash = std::hash<string>()(this->key.getUser_id())
+			+ 101 * std::hash<string>()(this->key.getFirst_name())
+			+ 149 * std::hash<string>()(this->key.getEmail());
+		return hash;
+	}
 };
