@@ -159,6 +159,94 @@ public:
 
 	}
 
+	/*bool removeWithAllChildren(K key)
+	{
+		//TNode<size_t, Student>* toBeRemoved = root;
+		TNode<size_t, Student>* toBeRemoved = root;
+		TNode<size_t, Student>* parent = nullptr;
+		bool found = false;
+
+		while (!found && toBeRemoved != nullptr)
+		{
+			if (toBeRemoved->getKey() == key)
+			{
+				found = true;
+			}
+			else
+			{
+				parent = toBeRemoved;
+				if (toBeRemoved->getKey() > key)
+				{
+					toBeRemoved = toBeRemoved->getpLeft();
+				}
+				else
+				{
+					toBeRemoved = toBeRemoved->getpRight();
+				}
+			}
+		}
+		if (!found)
+			return false;
+
+
+		toBeRemoved->nullifyPLeft();
+		toBeRemoved->nullifyPRight();
+		toBeRemoved = nullptr;
+
+
+		if (parent == nullptr)
+		{
+			root = toBeRemoved;
+		}
+			
+		toBeRemoved = nullptr;
+		
+		return true;
+	}*/
+
+	bool removeWithAllChildren(K key)
+	{
+		//TNode<size_t, Student>* toBeRemoved = root;
+		TNode<size_t, Student>* toBeRemoved = root;
+		TNode<size_t, Student>* parent = nullptr;
+		bool found = false;
+
+		if (root->getKey() == key)
+		{
+			found = true;
+			root = nullptr;
+		}
+
+		while (!found && toBeRemoved != nullptr)
+		{
+			if (toBeRemoved->getpLeft()->getKey() == key)
+			{
+				found = true;
+				toBeRemoved->nullifyPLeft();
+			}
+			else if (toBeRemoved->getpRight()->getKey() == key)
+			{
+				found = true;
+				toBeRemoved->nullifyPRight();
+			}
+			else
+			{
+				parent = toBeRemoved;
+				if (toBeRemoved->getKey() > key)
+				{
+					toBeRemoved = toBeRemoved->getpLeft();
+				}
+				else
+				{
+					toBeRemoved = toBeRemoved->getpRight();
+				}
+			}
+		}
+		if (!found)
+			return false;
+		
+		return true;
+	}
 
 	// Pretty sure this one would require a search first, then a recursive deletion algorithm
 	// similar to the count algorithm... but that is only if nodes are dynamically allocated

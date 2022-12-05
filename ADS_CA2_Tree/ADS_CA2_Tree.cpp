@@ -21,7 +21,7 @@ int main()
 		cout << "Something went wrong with initialisation. ERROR CODE: " << x << endl;
 	}
 	
-	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
+	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_2//ADS_CA2_Tree//data_1000.csv");
 
 	BinaryTree<size_t, Student> newTree;
 
@@ -51,11 +51,17 @@ int main()
 		StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
 		/*TNode<StudentKey, Student> newNode(newKey, newStudent);*/
 		newTree.insert(newKey.getHash(), newStudent);
+		//cout << newKey.getHash() << endl;
 
 	}
+
+
+	StudentKey dummy(delimitedRows[4][0], delimitedRows[4][2], delimitedRows[4][6]);
+
+	size_t hashCode = dummy.hash();
+
 	cout << "\nCount: " << newTree.count() << endl;
-	cout << "\nFound and deleted?: " << newTree.remove(8804579525034649440) << endl;
-	cout << "\nFound and deleted?: " << newTree.remove(18443049407160319861) << endl;
+	cout << "\nFound and deleted?: " << newTree.removeWithAllChildren(hashCode) << endl;
 	//cout << "\nFound and deleted?: " << newTree.remove(16290277276361596134) << endl;
 	cout << "\nCount: " << newTree.count() << endl;
 

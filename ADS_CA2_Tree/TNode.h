@@ -107,6 +107,8 @@ public:
 	TNode* getParent() const { return this->parent; }
 	void setPLeft(TNode* newLeft) { this->pLeft = newLeft; }
 	void setPRight(TNode* newRight) { this->pRight = newRight; }
+	void nullifyPLeft() { this->pLeft = nullptr; }
+	void nullifyPRight() { this->pRight = nullptr; }
 	void setData(E data) { this->data = data; }
 
 	void printNode() {
