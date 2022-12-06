@@ -55,6 +55,33 @@ public:
 		return c;
 	}
 
+	void getHeight(int& counter, int& max)
+	{
+		counter--;
+		if (pLeft == nullptr && pRight == nullptr)
+		{
+			if (counter > max) {
+				max = counter;
+			}
+
+			counter--;
+
+		}
+		else {
+			if (pLeft != nullptr)
+			{
+				counter += 2;
+				pLeft->getHeight(counter, max);
+			}
+			if (pRight != nullptr)
+			{
+				counter += 2;
+				pRight->getHeight(counter, max);
+			}
+		}
+
+	}
+
 
 	bool insert(K key, E data) {
 		

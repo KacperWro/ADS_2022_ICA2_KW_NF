@@ -43,6 +43,13 @@ public:
 		return root->count();
 	}
 
+	void getHeight(int& counter, int& max)
+	{
+		//if (root == nullptr)
+		//	return 0;
+		root->getHeight(counter, max);
+	}
+
 	void insert(K key, E data)
 	{
 		if (root == nullptr)
@@ -246,6 +253,35 @@ public:
 			return false;
 		
 		return true;
+	}
+
+	size_t depth(K key) {
+		TNode<size_t, Student>* toBeFound = root;
+		TNode<size_t, Student>* parent = nullptr;
+		bool found = false;
+		size_t layer_num = 0;
+
+		while (!found && toBeFound != nullptr)
+		{
+			if (toBeFound->getKey() == key)
+			{
+				return layer_num;
+			}
+			else
+			{
+				parent = toBeFound;
+				layer_num++;
+				if (toBeFound->getKey() > key)
+				{
+					toBeFound = toBeFound->getpLeft();
+				}
+				else
+				{
+					toBeFound = toBeFound->getpRight();
+				}
+			}
+		}
+		return -1;
 	}
 
 	// Pretty sure this one would require a search first, then a recursive deletion algorithm

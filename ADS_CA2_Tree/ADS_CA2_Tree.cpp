@@ -22,11 +22,11 @@ int main()
 	}
 	
 	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
-	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_2//ADS_CA2_Tree//data_1000.csv");
+	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_yip//ADS_CA2_Tree//data_1000.csv");
 
 	BinaryTree<size_t, Student> newTree;
 
-	for (int i = 1; i < delimitedRows.size(); i++) {
+	for (int i = 1; i < 7; i++) {
 		string timeDelimiter = ":";
 
 		//DATE OF BIRTH
@@ -57,6 +57,25 @@ int main()
 	}
 
 
+	StudentKey dummy(delimitedRows[1][0], delimitedRows[1][2], delimitedRows[1][6]);
+	size_t hashCode = dummy.hash();
+
+	StudentKey dummy1(delimitedRows[2][0], delimitedRows[2][2], delimitedRows[2][6]);
+	size_t hashCode1 = dummy.hash();
+
+	StudentKey dummy2(delimitedRows[3][0], delimitedRows[3][2], delimitedRows[3][6]);
+	size_t hashCode2 = dummy.hash();
+
+	StudentKey dummy3(delimitedRows[4][0], delimitedRows[4][2], delimitedRows[4][6]);
+	size_t hashCode3 = dummy.hash();
+
+	StudentKey dummy4(delimitedRows[5][0], delimitedRows[5][2], delimitedRows[5][6]);
+	size_t hashCode4 = dummy.hash();
+
+	StudentKey dummy5(delimitedRows[6][0], delimitedRows[6][2], delimitedRows[6][6]);
+	size_t hashCode5 = dummy.hash();
+
+
 	/*StudentKey dummy(delimitedRows[4][0], delimitedRows[4][2], delimitedRows[4][6]);
 
 	size_t hashCode = dummy.hash();*/
@@ -64,6 +83,19 @@ int main()
 	cout << "\nCount: " << newTree.count() << endl;
 	//cout << "\nFound and deleted?: " << newTree.removeWithAllChildren(16290277276361596134) << endl;
 	//cout << "\nFound and deleted?: " << newTree.remove(16290277276361596134) << endl;
+
+	cout << "\nDepth!: " << newTree.depth(dummy.hash()) << endl;
+	cout << "\nDepth!: " << newTree.depth(dummy1.hash()) << endl;
+	cout << "\nDepth!: " << newTree.depth(dummy2.hash()) << endl;
+	cout << "\nDepth!: " << newTree.depth(dummy3.hash()) << endl;
+	cout << "\nDepth!: " << newTree.depth(dummy4.hash()) << endl;
+	cout << "\nDepth!: " << newTree.depth(dummy5.hash()) << endl;
+
+	int height = 0;
+	int max = 0;
+	newTree.getHeight(height, max);
+	cout << "\nHeight: " << max << endl;
+
 	cout << "\nCount: " << newTree.count() << endl;
 
 
