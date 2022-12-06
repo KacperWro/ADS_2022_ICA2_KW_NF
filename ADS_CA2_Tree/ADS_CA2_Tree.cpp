@@ -82,11 +82,6 @@ int main()
 	StudentKey dummy9(delimitedRows[10][0], delimitedRows[10][2], delimitedRows[10][6]);
 
 	StudentKey dummy10(delimitedRows[11][0], delimitedRows[11][2], delimitedRows[11][6]);
-		Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-			delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-		StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-		TNode<StudentKey, Student> newNode(newKey, newStudent);
 
 	StudentKey dummy11(delimitedRows[12][0], delimitedRows[12][2], delimitedRows[12][6]);
 
