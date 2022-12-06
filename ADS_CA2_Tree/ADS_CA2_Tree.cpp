@@ -25,7 +25,7 @@ int main()
 
 	BinaryTree<StudentKey, Student> newTree;
 
-	for (int i = 1; i < delimitedRows.size(); i++) {
+	for (int i = 1; i < 6; i++) {
 		string timeDelimiter = ":";
 
 		//DATE OF BIRTH
