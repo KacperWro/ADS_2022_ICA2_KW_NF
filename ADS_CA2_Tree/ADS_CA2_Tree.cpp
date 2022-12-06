@@ -26,7 +26,7 @@ int main()
 
 	BinaryTree<size_t, Student> newTree;
 
-	for (int i = 1; i < 7; i++) {
+	for (int i = 20; i < 25; i++) {
 		string timeDelimiter = ":";
 
 		//DATE OF BIRTH
@@ -52,28 +52,28 @@ int main()
 		StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
 		/*TNode<StudentKey, Student> newNode(newKey, newStudent);*/
 		newTree.insert(newKey.getHash(), newStudent);
-		//cout << newKey.getHash() << endl;
+		cout << newKey.getHash() << endl;
 
 	}
 
 
-	StudentKey dummy(delimitedRows[1][0], delimitedRows[1][2], delimitedRows[1][6]);
-	size_t hashCode = dummy.hash();
+	//StudentKey dummy(delimitedRows[1][0], delimitedRows[1][2], delimitedRows[1][6]);
+	//size_t hashCode = dummy.hash();
 
-	StudentKey dummy1(delimitedRows[2][0], delimitedRows[2][2], delimitedRows[2][6]);
-	size_t hashCode1 = dummy.hash();
+	//StudentKey dummy1(delimitedRows[2][0], delimitedRows[2][2], delimitedRows[2][6]);
+	//size_t hashCode1 = dummy.hash();
 
-	StudentKey dummy2(delimitedRows[3][0], delimitedRows[3][2], delimitedRows[3][6]);
-	size_t hashCode2 = dummy.hash();
+	//StudentKey dummy2(delimitedRows[3][0], delimitedRows[3][2], delimitedRows[3][6]);
+	//size_t hashCode2 = dummy.hash();
 
-	StudentKey dummy3(delimitedRows[4][0], delimitedRows[4][2], delimitedRows[4][6]);
-	size_t hashCode3 = dummy.hash();
+	//StudentKey dummy3(delimitedRows[4][0], delimitedRows[4][2], delimitedRows[4][6]);
+	//size_t hashCode3 = dummy.hash();
 
-	StudentKey dummy4(delimitedRows[5][0], delimitedRows[5][2], delimitedRows[5][6]);
-	size_t hashCode4 = dummy.hash();
+	//StudentKey dummy4(delimitedRows[5][0], delimitedRows[5][2], delimitedRows[5][6]);
+	//size_t hashCode4 = dummy.hash();
 
-	StudentKey dummy5(delimitedRows[6][0], delimitedRows[6][2], delimitedRows[6][6]);
-	size_t hashCode5 = dummy.hash();
+	//StudentKey dummy5(delimitedRows[6][0], delimitedRows[6][2], delimitedRows[6][6]);
+	//size_t hashCode5 = dummy.hash();
 
 
 	/*StudentKey dummy(delimitedRows[4][0], delimitedRows[4][2], delimitedRows[4][6]);
@@ -84,12 +84,12 @@ int main()
 	//cout << "\nFound and deleted?: " << newTree.removeWithAllChildren(16290277276361596134) << endl;
 	//cout << "\nFound and deleted?: " << newTree.remove(16290277276361596134) << endl;
 
-	cout << "\nDepth!: " << newTree.depth(dummy.hash()) << endl;
-	cout << "\nDepth!: " << newTree.depth(dummy1.hash()) << endl;
-	cout << "\nDepth!: " << newTree.depth(dummy2.hash()) << endl;
-	cout << "\nDepth!: " << newTree.depth(dummy3.hash()) << endl;
-	cout << "\nDepth!: " << newTree.depth(dummy4.hash()) << endl;
-	cout << "\nDepth!: " << newTree.depth(dummy5.hash()) << endl;
+	//cout << "\nDepth!: " << newTree.depth(dummy.hash()) << endl;
+	//cout << "\nDepth!: " << newTree.depth(dummy1.hash()) << endl;
+	//cout << "\nDepth!: " << newTree.depth(dummy2.hash()) << endl;
+	//cout << "\nDepth!: " << newTree.depth(dummy3.hash()) << endl;
+	//cout << "\nDepth!: " << newTree.depth(dummy4.hash()) << endl;
+	// 
 
 	int height = 0;
 	int max = 0;
@@ -99,7 +99,8 @@ int main()
 	cout << "\nCount: " << newTree.count() << endl;
 
 
-	TNode<size_t, Student>* myStudent = newTree.search(16290277276361596134);
+	/*TNode<size_t, Student>* myStudent = newTree.search(newTree.root->getKey());*/
+	TNode<size_t, Student>* myStudent = newTree.search(newTree.root->getpLeft()->getKey());
 
 	if (myStudent == nullptr) {
 		cout << "Student not found" << endl;
@@ -109,6 +110,26 @@ int main()
 		myStudent->getData().print();
 	}
 
+	//ORDER OF INSERTION
+	/*17637150501714504694
+	6878806713868193168
+	15384045679973578406
+	8126319230069491687
+	14229257309187970765*/
+
+	cout << "\nDepth!: " << newTree.depth(myStudent->getKey())<< endl;
+
+	BinaryTree<size_t, Student> newerTree = newTree.getSubTree(newTree.search(15384045679973578406));
+
+	TNode<size_t, Student>* newerStudent = newerTree.search(14229257309187970765);
+
+	if (newerStudent == nullptr) {
+		cout << "Student not found" << endl;
+	}
+	else
+	{
+		newerStudent->getData().print();
+	}
 
 
 }

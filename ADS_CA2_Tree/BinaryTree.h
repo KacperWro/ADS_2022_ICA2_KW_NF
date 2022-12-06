@@ -19,7 +19,11 @@ public:
 
 	BinaryTree()
 	{
-		root = nullptr;
+		this->root = nullptr;
+	}
+
+	BinaryTree(TNode<size_t, Student>* root) {
+		this->root = root;
 	}
 
 	/*E* search(K key) {
@@ -41,6 +45,10 @@ public:
 		if (root == nullptr)
 			return 0;
 		return root->count();
+	}
+
+	BinaryTree getSubTree(TNode<size_t, Student>* newRoot) {
+		return BinaryTree(newRoot);
 	}
 
 	void getHeight(int& counter, int& max)
