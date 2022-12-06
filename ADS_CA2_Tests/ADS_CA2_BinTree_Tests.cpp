@@ -106,7 +106,7 @@ namespace ADSCA2BinTreeTests
 			}
 			else
 			{
-				myStudent->printNode();
+				myStudent->getData().print();
 			}
 		}
 

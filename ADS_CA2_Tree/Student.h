@@ -112,6 +112,26 @@ public:
 			&& this->account_credit == student.account_credit;
 	}
 
+	void print() {
+		cout << "*******************************************************" << endl;
+		cout << "User ID            : " << this->getUser_id() << endl;
+		cout << "Current Ranking    : " << this->getCurrent_ranking() << endl;
+		cout << "First Name         : " << this->getFirst_name() << endl;
+		cout << "Surname            : " << this->getSurname() << endl;
+		cout << "Gender             : " << this->getGender() << endl;
+		cout << "Date of Birth      : " << this->getDate_of_birth() << endl;
+		cout << "Email              : " << this->getEmail() << endl;
+		cout << "Phone Number       : " << this->getPhone() << endl;
+		cout << "Postcode           : " << this->getPostcode() << endl;
+		cout << "Country            : " << this->getCountry() << endl;
+		cout << "Date last logged on: " << this->getLast_log_on_date() << endl;
+		cout << "Time last logged on: " << this->getLast_log_on_time() << endl;
+		cout << "Date joined on     : " << this->getJoined_on() << endl;
+		cout << "Account Credit     : " << this->getAccount_credit() << endl;
+		cout << "*******************************************************" << endl;
+	}
+
+
 
 
 };

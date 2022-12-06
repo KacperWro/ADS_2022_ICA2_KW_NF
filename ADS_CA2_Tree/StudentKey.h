@@ -8,32 +8,32 @@ using namespace std;
 class StudentKey
 {
 private:
-	string user_id;
+	/*string user_id;
 	string first_name;
-	string email;
+	string email;*/
 	size_t hashedNumber;
 
 public:
 	StudentKey() {
-		this->user_id = "";
+		/*this->user_id = "";
 		this->first_name = "";
-		this->email = "";
+		this->email = "";*/
 		this->hashedNumber = 0;
 	}
 
 	StudentKey(string user_id, string first_name, string email) {
-		this->user_id = user_id;
+	/*	this->user_id = user_id;
 		this->first_name = first_name;
-		this->email = email;
-		this->hashedNumber = hash();
+		this->email = email;*/
+		this->hashedNumber = hash(user_id, first_name, email);
 	}
 
-	StudentKey(Student& t)
+	/*StudentKey(Student& t)
 	{
 		this->user_id = t.getUser_id();
 		this->first_name = t.getFirst_name();
 		this->email = t.getEmail();
-	}
+	}*/
 
 	//string getUser_id() const { return this->user_id; }
 	//string getFirst_name() const { return this->first_name; }
@@ -45,11 +45,11 @@ public:
 		return this->hashedNumber == studentKey.hashedNumber;
 	}
 
-	std::size_t hash() const
+	std::size_t hash(string user_id, string first_name, string email) const
 	{
-		size_t hash = std::hash<string>()(this->user_id)
-			+ 101 * std::hash<string>()(this->first_name)
-			+ 149 * std::hash<string>()(this->email);
+		size_t hash = std::hash<string>()(user_id)
+			+ 101 * std::hash<string>()(first_name)
+			+ 149 * std::hash<string>()(email);
 		return hash;
 	}
 

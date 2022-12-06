@@ -21,7 +21,8 @@ int main()
 		cout << "Something went wrong with initialisation. ERROR CODE: " << x << endl;
 	}
 	
-	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_2//ADS_CA2_Tree//data_1000.csv");
+	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
+	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_2//ADS_CA2_Tree//data_1000.csv");
 
 	BinaryTree<size_t, Student> newTree;
 
@@ -56,12 +57,12 @@ int main()
 	}
 
 
-	StudentKey dummy(delimitedRows[4][0], delimitedRows[4][2], delimitedRows[4][6]);
+	/*StudentKey dummy(delimitedRows[4][0], delimitedRows[4][2], delimitedRows[4][6]);
 
-	size_t hashCode = dummy.hash();
+	size_t hashCode = dummy.hash();*/
 
 	cout << "\nCount: " << newTree.count() << endl;
-	cout << "\nFound and deleted?: " << newTree.removeWithAllChildren(hashCode) << endl;
+	//cout << "\nFound and deleted?: " << newTree.removeWithAllChildren(16290277276361596134) << endl;
 	//cout << "\nFound and deleted?: " << newTree.remove(16290277276361596134) << endl;
 	cout << "\nCount: " << newTree.count() << endl;
 
@@ -73,7 +74,7 @@ int main()
 	}
 	else
 	{
-		myStudent->printNode();
+		myStudent->getData().print();
 	}
 
 

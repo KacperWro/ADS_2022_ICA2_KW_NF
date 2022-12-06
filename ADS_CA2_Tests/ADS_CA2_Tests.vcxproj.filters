@@ -21,9 +21,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ADS_CA2_Tree.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ADS_CA2_BinTree_Tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -31,24 +28,6 @@
   <ItemGroup>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BinaryTree.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Student.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StudentKey.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TNode.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ADS_CA2_Tree\Time.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\ADS_CA2_Tree\Date.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
