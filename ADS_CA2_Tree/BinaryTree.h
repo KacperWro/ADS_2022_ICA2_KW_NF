@@ -51,12 +51,7 @@ public:
 		return BinaryTree(newRoot);
 	}
 
-	void getHeight(int& counter, int& max)
-	{
-		//if (root == nullptr)
-		//	return 0;
-		root->getHeight(counter, max);
-	}
+	
 
 	void insert(K key, E data)
 	{
@@ -290,6 +285,15 @@ public:
 			}
 		}
 		return -1;
+	}
+
+	void getHeight(int& counter, int& max, K key)
+	{
+		//if (root == nullptr)
+		//	return 0;
+
+		TNode<size_t, Student>* toBeFound = search(key);
+		toBeFound->getHeight(counter, max);
 	}
 
 	// Pretty sure this one would require a search first, then a recursive deletion algorithm

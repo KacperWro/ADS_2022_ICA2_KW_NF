@@ -52,7 +52,7 @@ int main()
 		StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
 		/*TNode<StudentKey, Student> newNode(newKey, newStudent);*/
 		newTree.insert(newKey.getHash(), newStudent);
-		//cout << newKey.getHash() << endl;
+		cout << newKey.getHash() << endl;
 
 	}
 
@@ -117,7 +117,7 @@ int main()
 
 	int height = 0;
 	int max = 0;
-	newTree.getHeight(height, max);
+	newTree.getHeight(height, max, dummy3.getHash());
 	cout << "\nHeight: " << max << endl;
 
 	//cout << "\nCount: " << newTree.count() << endl;
@@ -140,19 +140,19 @@ int main()
 	8126319230069491687
 	14229257309187970765*/
 
-	cout << "\nDepth!: " << newTree.depth(myStudent->getKey())<< endl;
+	//cout << "\nDepth!: " << newTree.depth(myStudent->getKey())<< endl;
 
-	BinaryTree<size_t, Student> newerTree = newTree.getSubTree(newTree.search(15384045679973578406));
+	//BinaryTree<size_t, Student> newerTree = newTree.getSubTree(newTree.search(15384045679973578406));
 
-	TNode<size_t, Student>* newerStudent = newerTree.search(14229257309187970765);
+	//TNode<size_t, Student>* newerStudent = newerTree.search(14229257309187970765);
 
-	if (newerStudent == nullptr) {
-		cout << "Student not found" << endl;
-	}
-	else
-	{
-		newerStudent->getData().print();
-	}
+	//if (newerStudent == nullptr) {
+	//	cout << "Student not found" << endl;
+	//}
+	//else
+	//{
+	//	newerStudent->getData().print();
+	//}
 
 
 }
