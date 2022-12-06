@@ -85,7 +85,6 @@ int main()
 
 	StudentKey dummy11(delimitedRows[12][0], delimitedRows[12][2], delimitedRows[12][6]);
 
-		/*for (auto it = delimitedRows[i].begin(); it != delimitedRows[i].end(); it++)
 
 	
 
@@ -134,6 +133,26 @@ int main()
 		myStudent->getData().print();
 	}
 
+	//ORDER OF INSERTION
+	/*17637150501714504694
+	6878806713868193168
+	15384045679973578406
+	8126319230069491687
+	14229257309187970765*/
+
+	cout << "\nDepth!: " << newTree.depth(myStudent->getKey())<< endl;
+
+	BinaryTree<size_t, Student> newerTree = newTree.getSubTree(newTree.search(15384045679973578406));
+
+	TNode<size_t, Student>* newerStudent = newerTree.search(14229257309187970765);
+
+	if (newerStudent == nullptr) {
+		cout << "Student not found" << endl;
+	}
+	else
+	{
+		newerStudent->getData().print();
+	}
 
 
 }
