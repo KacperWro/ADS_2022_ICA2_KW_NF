@@ -26,19 +26,27 @@ public:
 		this->root = root;
 	}
 
-	/*E* search(K key) {
-		return nullptr;
-	}*/
 
-	// Currently not 100% sure whether to make this one return a true/false value or a pointer
-	// If such an object exists then the insertion won't happen, but it it's already there
-	// Do we really care if the insertion happened or not?
-	// do we provide both a key and a full object? for example, use the key's hash for navigation
-	// and then attach the data object to the tree?
+	void addItemToArray(TNode<size_t, Student>* node, int& pos, TNode<size_t, Student>* arr)
+	{
+		if (node != nullptr)
+		{
+			addItemToArray(node->getpLeft(), pos, arr);
+			arr[pos] = *node;
+			pos++;
+			addItemToArray(node->getpRight(), pos, arr);
+		}
 
-	/*E* insert(K key, E dataObj) {
-		return nullptr;
-	}*/
+	}
+
+
+	TNode<size_t, Student>* toArray()
+	{
+		TNode<size_t, Student>* arr = new TNode<size_t, Student>[root->count()];
+		int pos = 0;
+		addItemToArray(root, pos, arr);
+		return arr;
+	}
 
 	int count()
 	{
@@ -64,6 +72,7 @@ public:
 		if (node != nullptr)
 		{
 			if (currentDepth++ <= maxDepth) {
+				cout << "Current depth: " << currentDepth << endl;
 				printToDepthN(node->getpLeft(), maxDepth, currentDepth++);
 				node->getData().print();
 				currentDepth--;
@@ -217,24 +226,9 @@ public:
 
 	void getHeight(int& counter, int& max, K key)
 	{
-		//if (root == nullptr)
-		//	return 0;
-
 		TNode<size_t, Student>* toBeFound = search(key);
 		toBeFound->getHeight(counter, max);
 	}
 
-	// Pretty sure this one would require a search first, then a recursive deletion algorithm
-	// similar to the count algorithm... but that is only if nodes are dynamically allocated
-	// if they are not recursively allocated, wouldn't c++ just clean them up itself?
-	// return false could signify the key wasnt in the tree or key was entered wrong by user
-	//bool deleteSubTree(K key) {
-	//	return false;
-	//}
-
-	// return a string or make this one as an ostream???
-	/*string printTree(size_t depth) {
-		string compilestr = "";
-		return compilestr;
-	}*/
+	
 };

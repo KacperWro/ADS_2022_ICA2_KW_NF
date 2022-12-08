@@ -15,6 +15,9 @@ using namespace std;
 int main()
 {
 	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
+
+
+
 	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
 
 	BinaryTree<size_t, Student> newTree;
@@ -87,37 +90,70 @@ int main()
 	cout << "\nDepth of root node: " << newTree.depth(newTree.root->getKey()) << endl;
 
 
-	newTree.printToDepthN(2);
+	newTree.printToDepthN(6);
+	
 
 
-	cout << "Root node" << endl;
-	cout << endl;
-	newTree.root->getData().print();
+	//cout << "Root node" << endl;
+	//cout << endl;
+	//newTree.root->getData().print();
 
-	cout << "\nRoot node left child" << endl;
-	cout << endl;
-	newTree.root->getpLeft()->getData().print();
-
-
-	cout << "\nRoot node right child" << endl;
-	cout << endl;
-	newTree.root->getpRight()->getData().print();
+	//cout << "\nRoot node left child" << endl;
+	//cout << endl;
+	//newTree.root->getpLeft()->getData().print();
 
 
-	cout << "\nRoot node left child left child" << endl;
-	cout << endl;
-	newTree.root->getpLeft()->getpLeft()->getData().print();
+	//cout << "\nRoot node right child" << endl;
+	//cout << endl;
+	//newTree.root->getpRight()->getData().print();
 
 
-	cout << "\nRoot node left child right child" << endl;
-	cout << endl;
-	newTree.root->getpLeft()->getpRight()->getData().print();
+	//cout << "\nRoot node left child left child" << endl;
+	//cout << endl;
+	//newTree.root->getpLeft()->getpLeft()->getData().print();
 
 
-	cout << "\nRoot node left child left child left child" << endl;
-	cout << endl;
-	newTree.root->getpLeft()->getpLeft()->getpLeft()->getData().print();
+	//cout << "\nRoot node left child right child" << endl;
+	//cout << endl;
+	//newTree.root->getpLeft()->getpRight()->getData().print();
 
+
+	//cout << "\nRoot node left child left child left child" << endl;
+	//cout << endl;
+	//newTree.root->getpLeft()->getpLeft()->getpLeft()->getData().print();
+
+
+	
+	cout << "BEFORE BALANCE" << endl;
+
+	int max = 0;
+	int counter = 0;
+
+	newTree.getHeight(counter, max, newTree.root->getKey());
+
+	cout << "Counter: " << counter << endl;
+	cout << "Max: " << max << endl;
+
+
+
+	//newTree.printToDepthN(10);
+
+
+	cout << "AFTER BALANCE" << endl;
+	balance(newTree);
+
+	max = 0;
+	counter = 0;
+
+	newTree.getHeight(counter, max, newTree.root->getKey());
+
+	cout << "Counter: " << counter << endl;
+	cout << "Max: " << max << endl;
+
+	cout << "\nCount: " << newTree.count() << endl;
+
+
+	//newTree.printToDepthN(10);
 
 
 	/*cout << "\nCount before delete: " << newTree.count() << endl;

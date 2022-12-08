@@ -6,6 +6,9 @@
 #include <vector>
 #include <string>
 #include <regex>
+#include "Student.h"
+#include "StudentKey.h"
+#include "BinaryTree.h"
 using namespace std;
 
 /// <summary>
@@ -76,4 +79,26 @@ vector<string> splitString(string str, string delimiter)
 	words.push_back(str);
 
 	return words;
+}
+
+
+void createBalancedTree(BinaryTree<size_t, Student>& tree, int min, int max, TNode<size_t, Student>* arr)
+{
+	if (min < max)
+	{
+		int mid = (min + max) / 2;
+		tree.insert(arr[mid].getKey(), arr[mid].getData());
+		//cout << arr[mid] << "THIS THA ARRAY" << endl;
+		createBalancedTree(tree, min, mid, arr);
+		createBalancedTree(tree, mid + 1, max, arr);
+	}
+}
+
+void balance(BinaryTree<size_t, Student>& tree)
+{
+	TNode<size_t, Student>* arr = tree.toArray();
+	int max = tree.count();
+	tree.clear();
+	createBalancedTree(tree, 0, max, arr);
+	delete[] arr;
 }
