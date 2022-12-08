@@ -32,14 +32,6 @@ public:
 		this->parent = nullptr;
 	}
 
-	~TNode() { 
-		cout << "Destructor called" << endl;
-		//delete this->pLeft; 
-		//delete this->pRight;
-		pLeft = nullptr;
-		pRight = nullptr;
-	}
-
 	int count()
 	{
 		int c = 1;
@@ -87,54 +79,6 @@ public:
 		}
 
 	}
-
-	void deleteNode()
-	{
-		//counter--;
-		if (pLeft == nullptr && pRight == nullptr)
-		{
-			delete this;
-
-		}
-		else {
-			if (pLeft != nullptr)
-			{
-				
-				pLeft->deleteNode();
-				pLeft = nullptr;
-				
-			}
-			if (pRight != nullptr)
-			{
-				
-				pRight->deleteNode();
-				pRight = nullptr;
-
-			}
-		}
-
-	}
-	void up1LayerAndDeleteChild()
-	{
-		//delete this->getpLeft();
-		cout << "FUCKER" << endl;
-
-		TNode x = TNode(this->getpLeft()->getKey(), this->getpLeft()->getData());
-		x.setPLeft(this->getpLeft());
-		x.setPRight(this->getpRight());
-
-		//cout << this->getpLeft()->getKey();
-
-		delete x.getpLeft();
-		cout << "yeeeeeeeeeeeeeeeeeeee" << endl;
-		
-	}
-
-	void jusDel()
-	{
-		delete this;
-	}
-
 
 	bool insert(K key, E data) {
 		
@@ -187,12 +131,6 @@ public:
 	TNode* getParent() const { return this->parent; }
 	void setPLeft(TNode* newLeft) { this->pLeft = newLeft; }
 	void setPRight(TNode* newRight) { this->pRight = newRight; }
-	void nullifyPLeft() { 
-		delete this->pLeft;
-		this->pLeft = nullptr;
-		
-	}
-	void nullifyPRight() { this->pRight = nullptr; }
 	void setData(E data) { this->data = data; }
 
 

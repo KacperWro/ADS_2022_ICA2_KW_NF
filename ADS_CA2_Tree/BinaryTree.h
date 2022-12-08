@@ -47,11 +47,15 @@ public:
 		return root->count();
 	}
 
+	void clear()
+	{
+		delete root;
+		root = nullptr;
+	}
+
 	BinaryTree getSubTree(TNode<size_t, Student>* newRoot) {
 		return BinaryTree(newRoot);
 	}
-
-	
 
 	void insert(K key, E data)
 	{
@@ -95,63 +99,22 @@ public:
 		return nullptr;
 	}
 
-
-
-	bool remove(K key)
+	bool remove(K currentKey, K originalKey)
 	{
-		TNode<size_t, Student>* toBeFound = search(key);
-		if (toBeFound != nullptr) {
-			toBeFound->deleteNode();
-			//deleteTree(toBeFound);
-			cout << "right before deletion" << endl;
-			//delete toBeFound;
-			if (toBeFound->getpLeft() == nullptr && toBeFound->getpLeft() == nullptr)
-			{
-				cout << "THEY BOTH NULLPTRS" << endl; 
-
-			}
-			//free(toBeFound);
-			//cout << toBeFound->getParent()->getKey();
-			//toBeFound->jusDel();
-			//toBeFound->nullifyPLeft();
-
-
-			return true;
-		}
-		else {
-			return false;
-		}
-
-		
-
-		
-	}
-
-	
-
-	void yoink(K key)
-	{
-		TNode<size_t, Student>* toBeFound = search(key);
-		cout << "WE YOINKINNNNNNNNN" << endl;
-		toBeFound->jusDel();
-	}
-
-	/*bool remove(K key)
-	{
-		TNode<size_t, Student>* toBeRemoved = root;
+		TNode<size_t, Student>* toBeRemoved = this->root;
 		TNode<size_t, Student>* parent = nullptr;
 		bool found = false;
 
 		while (!found && toBeRemoved != nullptr)
 		{
-			if (toBeRemoved->getKey() == key)
+			if (toBeRemoved->getKey() == currentKey)
 			{
 				found = true;
 			}
 			else
 			{
 				parent = toBeRemoved;
-				if (toBeRemoved->getKey() > key)
+				if (toBeRemoved->getKey() > currentKey)
 				{
 					toBeRemoved = toBeRemoved->getpLeft();
 				}
@@ -164,216 +127,41 @@ public:
 		if (!found)
 			return false;
 
-		delete toBeRemoved;
-		toBeRemoved = nullptr;
-
-		if (toBeRemoved->getpLeft() == nullptr || toBeRemoved->getpRight() == nullptr)
-		{
-			TNode<size_t, Student>* newChild;
-			if (toBeRemoved->getpLeft() == nullptr)
-			{
-				newChild = toBeRemoved->getpRight();
-			}
-			else
-			{
-				newChild = toBeRemoved->getpLeft();
-			}
-			if (parent == nullptr)
-			{
-				root = newChild;
-			}
-			else if (parent->getpLeft() == toBeRemoved)
-			{
-				parent->setPLeft(newChild);
-			}
-			else
-			{
-				parent->setPRight(newChild);
-			}
-			return true;
+		if (toBeRemoved->getpLeft() != nullptr) {
+			cout << "call remove left" << endl;
+			remove(toBeRemoved->getpLeft()->getKey(), originalKey);
+		}
+		if (toBeRemoved->getpRight() != nullptr) {
+			cout << "call remove right" << endl;
+			remove(toBeRemoved->getpRight()->getKey(), originalKey);
 		}
 
-		TNode<size_t, Student>* smallestParent = toBeRemoved;
-		TNode<size_t, Student>* smallest = toBeRemoved->getpRight();
-		while (smallest->getpLeft() != nullptr)
-		{
-			smallestParent = smallest;
-			smallest = smallest->getpLeft();
-		}
-		toBeRemoved->setData(smallest->getData());
-		if (smallestParent == toBeRemoved)
-		{
-			smallestParent->setPRight(smallest->getpRight());
-		}
-		else
-		{
-			smallestParent->setPLeft(smallest->getpLeft());
-		}
+		if (toBeRemoved->getpLeft() == nullptr && toBeRemoved->getpRight() == nullptr) {
+			cout << "deleting: " << currentKey << endl;
 
-	}*/
+			TNode<size_t, Student>* parentNode = toBeRemoved->getParent();
 
-	/*bool removeWithAllChildren(K key)
-	{
-		//TNode<size_t, Student>* toBeRemoved = root;
-		TNode<size_t, Student>* toBeRemoved = root;
-		TNode<size_t, Student>* parent = nullptr;
-		bool found = false;
-
-		while (!found && toBeRemoved != nullptr)
-		{
-			if (toBeRemoved->getKey() == key)
-			{
-				found = true;
+			if (parentNode == nullptr) {
+				this->clear();
+				return true;
 			}
-			else
-			{
-				parent = toBeRemoved;
-				if (toBeRemoved->getKey() > key)
-				{
-					toBeRemoved = toBeRemoved->getpLeft();
-				}
-				else
-				{
-					toBeRemoved = toBeRemoved->getpRight();
-				}
+
+			if (parentNode->getpLeft() != nullptr && parentNode->getpLeft()->getKey() == currentKey) {
+				delete parentNode->getpLeft();
+				parentNode->setPLeft(nullptr);
+				return true;
 			}
-		}
-		if (!found)
-			return false;
 
-
-		toBeRemoved->nullifyPLeft();
-		toBeRemoved->nullifyPRight();
-		toBeRemoved = nullptr;
-
-
-		if (parent == nullptr)
-		{
-			root = toBeRemoved;
-		}
-			
-		toBeRemoved = nullptr;
-		
-		return true;
-	}*/
-
-	bool removeWithAllChildren(K key)
-	{
-		//TNode<size_t, Student>* toBeRemoved = root;
-		TNode<size_t, Student>* toBeRemoved = root;
-		TNode<size_t, Student>* parent = nullptr;
-		bool found = false;
-
-		if (root->getKey() == key)
-		{
-			found = true;
-			root = nullptr;
-		}
-
-		while (!found && toBeRemoved != nullptr)
-		{
-			if (toBeRemoved->getpLeft()->getKey() == key)
-			{
-				found = true;
-				toBeRemoved->nullifyPLeft();
+			if (parentNode->getpRight() != nullptr && parentNode->getpRight()->getKey() == currentKey) {
+				delete parentNode->getpRight();
+				parentNode->setPRight(nullptr);
+				return true;
 			}
-			else if (toBeRemoved->getpRight()->getKey() == key)
-			{
-				found = true;
-				toBeRemoved->nullifyPRight();
-			}
-			else
-			{
-				parent = toBeRemoved;
-				if (toBeRemoved->getKey() > key)
-				{
-					toBeRemoved = toBeRemoved->getpLeft();
-				}
-				else
-				{
-					toBeRemoved = toBeRemoved->getpRight();
-				}
-			}
-		}
-		if (!found)
-			return false;
-		
-		return true;
-	}
 
-	
-	bool origRemove(K key)
-	{
-		TNode<size_t, Student>* toBeRemoved = root;
-		TNode<size_t, Student>* parent = nullptr;
-		bool found = false;
+			if (currentKey != originalKey) {
+				remove(originalKey, originalKey);
+			}
 
-		while (!found && toBeRemoved != nullptr)
-		{
-			if (toBeRemoved->getKey() == key)
-			{
-				found = true;
-			}
-			else
-			{
-				parent = toBeRemoved;
-				if (toBeRemoved->getKey() > key)
-				{
-					toBeRemoved = toBeRemoved->getpLeft();
-				}
-				else
-				{
-					toBeRemoved = toBeRemoved->getpRight();
-				}
-			}
-		}
-		if (!found)
-			return false;
-
-		delete toBeRemoved;
-		toBeRemoved = nullptr;
-
-		if (toBeRemoved->getpLeft() == nullptr || toBeRemoved->getpRight() == nullptr)
-		{
-			TNode<size_t, Student>* newChild;
-			if (toBeRemoved->getpLeft() == nullptr)
-			{
-				newChild = toBeRemoved->getpRight();
-			}
-			else
-			{
-				newChild = toBeRemoved->getpLeft();
-			}
-			if (parent == nullptr)
-			{
-				root = newChild;
-			}
-			else if (parent->getpLeft() == toBeRemoved)
-			{
-				parent->setPLeft(newChild);
-			}
-			else
-			{
-				parent->setPRight(newChild);
-			}
-			return true;
-		}
-
-		TNode<size_t, Student>* smallestParent = toBeRemoved;
-		TNode<size_t, Student>* smallest = toBeRemoved->getpRight();
-		while (smallest->getpLeft() != nullptr)
-		{
-			smallestParent = smallest;
-			smallest = smallest->getpLeft();
-		}
-		toBeRemoved->setData(smallest->getData());
-		if (smallestParent == toBeRemoved)
-		{
-			smallestParent->setPRight(smallest->getpRight());
-		}
-		else
-		{
-			smallestParent->setPLeft(smallest->getpLeft());
 		}
 
 	}

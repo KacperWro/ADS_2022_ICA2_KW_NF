@@ -12,21 +12,10 @@
 
 using namespace std;
 
-
-
-
 int main()
 {
-	try {
-		Date x = Date("11/11/2005");
-		cout << "Year from main()" << x.getYear() << endl;
-	}
-	catch(int x) {
-		cout << "Something went wrong with initialisation. ERROR CODE: " << x << endl;
-	}
-	
-	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
-	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
+	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
+	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
 
 	BinaryTree<size_t, Student> newTree;
 
@@ -62,48 +51,19 @@ int main()
 
 
 	StudentKey dummy(delimitedRows[1][0], delimitedRows[1][2], delimitedRows[1][6]);
-	
 	StudentKey dummy1(delimitedRows[2][0], delimitedRows[2][2], delimitedRows[2][6]);
-	
-
 	StudentKey dummy2(delimitedRows[3][0], delimitedRows[3][2], delimitedRows[3][6]);
-	
-
 	StudentKey dummy3(delimitedRows[4][0], delimitedRows[4][2], delimitedRows[4][6]);
-	
-
 	StudentKey dummy4(delimitedRows[5][0], delimitedRows[5][2], delimitedRows[5][6]);
-	
-
 	StudentKey dummy5(delimitedRows[6][0], delimitedRows[6][2], delimitedRows[6][6]);
-
 	StudentKey dummy6(delimitedRows[7][0], delimitedRows[7][2], delimitedRows[7][6]);
-
 	StudentKey dummy7(delimitedRows[8][0], delimitedRows[8][2], delimitedRows[8][6]);
-
 	StudentKey dummy8(delimitedRows[9][0], delimitedRows[9][2], delimitedRows[9][6]);
-
 	StudentKey dummy9(delimitedRows[10][0], delimitedRows[10][2], delimitedRows[10][6]);
-
 	StudentKey dummy10(delimitedRows[11][0], delimitedRows[11][2], delimitedRows[11][6]);
-
 	StudentKey dummy11(delimitedRows[12][0], delimitedRows[12][2], delimitedRows[12][6]);
 
-
-	
-
-
-
-
-
-	/*StudentKey dummy(delimitedRows[4][0], delimitedRows[4][2], delimitedRows[4][6]);
-
-	size_t hashCode = dummy.hash();*/
-
 	cout << "\nCount: " << newTree.count() << endl;
-	//cout << "\nFound and deleted?: " << newTree.removeWithAllChildren(16290277276361596134) << endl;
-	//cout << "\nFound and deleted?: " << newTree.remove(16290277276361596134) << endl;
-
 	cout << "\nDepth!: " << newTree.depth(dummy.getHash()) << endl;
 	cout << "\nDepth!: " << newTree.depth(dummy1.getHash()) << endl;
 	cout << "\nDepth!: " << newTree.depth(dummy2.getHash()) << endl;
@@ -112,8 +72,7 @@ int main()
 	cout << "\nDepth!: " << newTree.depth(dummy5.getHash()) << endl; 
 	cout << "\nDepth!: " << newTree.depth(dummy6.getHash()) << endl;
 	cout << "\nDepth!: " << newTree.depth(dummy7.getHash()) << endl;
-	//cout << "\nCount: " << newTree.count() << endl;
-
+	cout << "\nCount: " << newTree.count() << endl;
 
 	TNode<size_t, Student>* myStudent = newTree.search(16290277276361596134);
 
@@ -125,60 +84,16 @@ int main()
 		myStudent->getData().print();
 	}
 
-	cout << "\nCount: " << newTree.count() << endl;
+	cout << "\nCount before delete: " << newTree.count() << endl;
+	cout << newTree.remove(newTree.root->getpLeft()->getKey(), newTree.root->getpLeft()->getKey()) << endl;
+	cout << "\nCount after delete: " << newTree.count() << endl;
 
 
+	//TESTING DELETION OF ROOT NODE
+	/*cout << "\nCount before delete: " << newTree.count() << endl;
+	cout << newTree.remove(newTree.root->getKey(), newTree.root->getKey()) << endl;
+	cout << "\nCount after delete: " << newTree.count() << endl;*/
 
-	/*cout << newTree.remove(newTree.root->getKey()) << endl;
-
-
-	if (newTree.root == nullptr) {
-		cout << "Student not found" << endl;
-	}
-	else
-	{
-		newTree.root->getData().print();
-	}*/
-
-	cout << newTree.root->getKey() << endl;
-	//cout << newTree.remove(newTree.root->getKey()) << endl;
-	cout << newTree.remove(newTree.root->getpLeft()->getKey()) << endl;
-	newTree.root->nullifyPLeft();
-	//newTree.origRemove(newTree.root->getpLeft()->getKey());
-	//cout << newTree.remove(newTree.root->getpLeft()->getKey()) << endl;
-
-	//x.setPLeft(newTree.root->getpLeft());
-	//x.setPRight(newTree.root->getpRight());
-
-	
-
-
-	cout << "\nCount: " << newTree.count() << endl;
-	//cout << newTree.root->getKey() << endl;
-	//cout << newTree.root->getpLeft()->getpLeft()->getKey() << endl;
-	//cout << newTree.root->getpLeft()->getKey() << endl;
-
-
-	cout << newTree.root->getKey() << endl;
-	cout << newTree.root->getpRight()->getKey() << endl;
-	cout << newTree.root->getpRight()->getpLeft()->getKey() << endl;
-	cout << newTree.root->getpRight()->getpLeft()->getpLeft()->getKey() << endl;
-	cout << newTree.root->getpRight()->getpLeft()->getpLeft()->getpRight()->getKey() << endl;
-	//cout << newTree.root->getpRight()->getpLeft()->getpLeft()->getpRight()->getpRight()->getKey() << endl;
-	cout << newTree.root->getpRight()->getpRight()->getKey() << endl;
-	cout << newTree.root->getpRight()->getpRight()->getpRight()->getKey() << endl;
-	cout << newTree.root->getpRight()->getpRight()->getpRight()->getpLeft()->getKey() << endl;
-
-
-	
-	cout << "\nCount: " << newTree.count() << endl;
-
-	//ORDER OF INSERTION
-	/*17637150501714504694
-	6878806713868193168
-	15384045679973578406
-	8126319230069491687
-	14229257309187970765*/
 
 	//cout << "\nDepth!: " << newTree.depth(myStudent->getKey())<< endl;
 
