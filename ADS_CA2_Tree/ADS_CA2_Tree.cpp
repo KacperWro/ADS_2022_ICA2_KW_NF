@@ -87,7 +87,7 @@ int main()
 	cout << "\nDepth of root node: " << newTree.depth(newTree.root->getKey()) << endl;
 
 
-	newTree.printInOrder(2);
+	newTree.printToDepthN(2);
 
 
 	cout << "Root node" << endl;
