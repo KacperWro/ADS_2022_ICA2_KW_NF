@@ -53,6 +53,26 @@ public:
 		root = nullptr;
 	}
 
+
+	void printInOrder(int maxDepth)
+	{
+		this->printInOrder(root, maxDepth, 0);
+		cout << endl;
+	}
+	void printInOrder(TNode<K, E>* node, int maxDepth, int currentDepth)
+	{
+		if (node != nullptr)
+		{
+			if (currentDepth++ <= maxDepth) {
+				printInOrder(node->getpLeft(), maxDepth, currentDepth++);
+				node->getData().print();
+				currentDepth--;
+				printInOrder(node->getpRight(), maxDepth, currentDepth++);
+			}
+		}
+	}
+
+
 	BinaryTree getSubTree(TNode<size_t, Student>* newRoot) {
 		return BinaryTree(newRoot);
 	}

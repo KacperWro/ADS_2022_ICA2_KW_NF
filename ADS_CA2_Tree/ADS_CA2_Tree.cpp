@@ -84,15 +84,53 @@ int main()
 		myStudent->getData().print();
 	}
 
-	cout << "\nCount before delete: " << newTree.count() << endl;
+	cout << "\nDepth of root node: " << newTree.depth(newTree.root->getKey()) << endl;
+
+
+	newTree.printInOrder(2);
+
+
+	cout << "Root node" << endl;
+	cout << endl;
+	newTree.root->getData().print();
+
+	cout << "\nRoot node left child" << endl;
+	cout << endl;
+	newTree.root->getpLeft()->getData().print();
+
+
+	cout << "\nRoot node right child" << endl;
+	cout << endl;
+	newTree.root->getpRight()->getData().print();
+
+
+	cout << "\nRoot node left child left child" << endl;
+	cout << endl;
+	newTree.root->getpLeft()->getpLeft()->getData().print();
+
+
+	cout << "\nRoot node left child right child" << endl;
+	cout << endl;
+	newTree.root->getpLeft()->getpRight()->getData().print();
+
+
+	cout << "\nRoot node left child left child left child" << endl;
+	cout << endl;
+	newTree.root->getpLeft()->getpLeft()->getpLeft()->getData().print();
+
+
+
+	/*cout << "\nCount before delete: " << newTree.count() << endl;
 	cout << newTree.remove(newTree.root->getpLeft()->getKey(), newTree.root->getpLeft()->getKey()) << endl;
-	cout << "\nCount after delete: " << newTree.count() << endl;
+	cout << "\nCount after delete: " << newTree.count() << endl;*/
 
 
 	//TESTING DELETION OF ROOT NODE
 	/*cout << "\nCount before delete: " << newTree.count() << endl;
 	cout << newTree.remove(newTree.root->getKey(), newTree.root->getKey()) << endl;
 	cout << "\nCount after delete: " << newTree.count() << endl;*/
+
+
 
 
 	//cout << "\nDepth!: " << newTree.depth(myStudent->getKey())<< endl;
