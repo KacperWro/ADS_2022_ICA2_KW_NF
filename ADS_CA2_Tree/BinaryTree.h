@@ -86,17 +86,19 @@ public:
 		return BinaryTree(newRoot);
 	}
 
-	void insert(K key, E data)
+	bool insert(K key, E data)
 	{
 		if (root == nullptr)
 		{
 			//cout << "\nroot pointer is null" << endl;
 			root = new TNode<K, E>(key, data);
+			return true;
 		}
 		else
 		{
 			//cout << "\nroot pointer is not null" << endl;
-			root->insert(key, data);
+			bool insertHappened = root->insert(key, data);
+			return insertHappened;
 		}
 	}
 
@@ -221,7 +223,8 @@ public:
 				}
 			}
 		}
-		return -1;
+		//return -1;
+		throw std::out_of_range("Node doesn't exist in tree");
 	}
 
 	void getHeight(int& counter, int& max, K key)
