@@ -14,12 +14,12 @@ using namespace std;
 
 int main()
 {
-	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
-	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
+	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
+	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF//ADS_CA2_Tree//data_1000.csv");
 
 	BinaryTree<size_t, Student> newTree;
 
-	for (int i = 1; i < 21; i++) {
+	for (int i = 1; i < 6; i++) {
 		string timeDelimiter = ":";
 
 		//DATE OF BIRTH
@@ -63,7 +63,10 @@ int main()
 	StudentKey dummy10(delimitedRows[11][0], delimitedRows[11][2], delimitedRows[11][6]);
 	StudentKey dummy11(delimitedRows[12][0], delimitedRows[12][2], delimitedRows[12][6]);
 
-	cout << "\nCount: " << newTree.count() << endl;
+
+
+
+	/*cout << "\nCount: " << newTree.count() << endl;
 	cout << "\nDepth!: " << newTree.depth(dummy.getHash()) << endl;
 	cout << "\nDepth!: " << newTree.depth(dummy1.getHash()) << endl;
 	cout << "\nDepth!: " << newTree.depth(dummy2.getHash()) << endl;
@@ -86,7 +89,7 @@ int main()
 
 	cout << "\nCount before delete: " << newTree.count() << endl;
 	cout << newTree.remove(newTree.root->getpLeft()->getKey(), newTree.root->getpLeft()->getKey()) << endl;
-	cout << "\nCount after delete: " << newTree.count() << endl;
+	cout << "\nCount after delete: " << newTree.count() << endl;*/
 
 
 	//TESTING DELETION OF ROOT NODE
@@ -108,6 +111,11 @@ int main()
 	//{
 	//	newerStudent->getData().print();*/--
 	//}
+
+
+	cout << "BALANCE CHECKS" << endl;
+
+	balance(newTree);
 
 
 }

@@ -47,11 +47,36 @@ public:
 		return root->count();
 	}
 
+
+	//template <typename K, typename E>
+	void addItemToArray(TNode<size_t, Student>* node, int& pos, TNode<size_t, Student>* arr)
+	{
+		if (node != nullptr)
+		{
+			addItemToArray(node->getpLeft(), pos, arr);
+			arr[pos] = node;
+			pos++;
+			addItemToArray(node->getpRight(), pos, arr);
+		}
+
+	}
+
+
+	//template <typename K, typename E>
+	TNode<size_t, Student>* toArray()
+	{
+		TNode<size_t, Student>* arr = new TNode<size_t, Student>[root->count()];
+		int pos = 0;
+		addItemToArray(root, pos, arr);
+		return arr;
+	}
+
 	void clear()
 	{
 		delete root;
 		root = nullptr;
 	}
+
 
 	BinaryTree getSubTree(TNode<size_t, Student>* newRoot) {
 		return BinaryTree(newRoot);

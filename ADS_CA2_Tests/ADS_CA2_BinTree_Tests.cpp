@@ -64,7 +64,7 @@ namespace ADSCA2BinTreeTests
 		TEST_METHOD(TestDeleteLeaf)
 		{
 			
-			BinaryTree<size_t, Student> newTree;
+			/*BinaryTree<size_t, Student> newTree;
 
 				Date dob(1,1,2000);
 				TimeHHMM timez(11,11);
@@ -95,7 +95,7 @@ namespace ADSCA2BinTreeTests
 
 
 			cout << "\nCount: " << newTree.count() << endl;
-			cout << "\nFound and deleted?: " << newTree.removeWithAllChildren(1) << endl;
+			cout << "\nFound and deleted?: " << newTree.remove(1) << endl;
 			cout << "\nCount: " << newTree.count() << endl;
 
 
@@ -107,7 +107,7 @@ namespace ADSCA2BinTreeTests
 			else
 			{
 				myStudent->getData().print();
-			}
+			}*/
 		}
 
 		/*
