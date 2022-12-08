@@ -95,13 +95,27 @@ public:
 		return nullptr;
 	}
 
+
+
 	bool remove(K key)
 	{
 		TNode<size_t, Student>* toBeFound = search(key);
 		if (toBeFound != nullptr) {
 			toBeFound->deleteNode();
+			//deleteTree(toBeFound);
 			cout << "right before deletion" << endl;
 			//delete toBeFound;
+			if (toBeFound->getpLeft() == nullptr && toBeFound->getpLeft() == nullptr)
+			{
+				cout << "THEY BOTH NULLPTRS" << endl; 
+
+			}
+			//free(toBeFound);
+			//cout << toBeFound->getParent()->getKey();
+			//toBeFound->jusDel();
+			//toBeFound->nullifyPLeft();
+
+
 			return true;
 		}
 		else {
@@ -111,6 +125,15 @@ public:
 		
 
 		
+	}
+
+	
+
+	void yoink(K key)
+	{
+		TNode<size_t, Student>* toBeFound = search(key);
+		cout << "WE YOINKINNNNNNNNN" << endl;
+		toBeFound->jusDel();
 	}
 
 	/*bool remove(K key)
@@ -276,6 +299,83 @@ public:
 			return false;
 		
 		return true;
+	}
+
+	
+	bool origRemove(K key)
+	{
+		TNode<size_t, Student>* toBeRemoved = root;
+		TNode<size_t, Student>* parent = nullptr;
+		bool found = false;
+
+		while (!found && toBeRemoved != nullptr)
+		{
+			if (toBeRemoved->getKey() == key)
+			{
+				found = true;
+			}
+			else
+			{
+				parent = toBeRemoved;
+				if (toBeRemoved->getKey() > key)
+				{
+					toBeRemoved = toBeRemoved->getpLeft();
+				}
+				else
+				{
+					toBeRemoved = toBeRemoved->getpRight();
+				}
+			}
+		}
+		if (!found)
+			return false;
+
+		delete toBeRemoved;
+		toBeRemoved = nullptr;
+
+		if (toBeRemoved->getpLeft() == nullptr || toBeRemoved->getpRight() == nullptr)
+		{
+			TNode<size_t, Student>* newChild;
+			if (toBeRemoved->getpLeft() == nullptr)
+			{
+				newChild = toBeRemoved->getpRight();
+			}
+			else
+			{
+				newChild = toBeRemoved->getpLeft();
+			}
+			if (parent == nullptr)
+			{
+				root = newChild;
+			}
+			else if (parent->getpLeft() == toBeRemoved)
+			{
+				parent->setPLeft(newChild);
+			}
+			else
+			{
+				parent->setPRight(newChild);
+			}
+			return true;
+		}
+
+		TNode<size_t, Student>* smallestParent = toBeRemoved;
+		TNode<size_t, Student>* smallest = toBeRemoved->getpRight();
+		while (smallest->getpLeft() != nullptr)
+		{
+			smallestParent = smallest;
+			smallest = smallest->getpLeft();
+		}
+		toBeRemoved->setData(smallest->getData());
+		if (smallestParent == toBeRemoved)
+		{
+			smallestParent->setPRight(smallest->getpRight());
+		}
+		else
+		{
+			smallestParent->setPLeft(smallest->getpLeft());
+		}
+
 	}
 
 	size_t depth(K key) {

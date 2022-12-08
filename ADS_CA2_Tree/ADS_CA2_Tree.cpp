@@ -8,8 +8,12 @@
 #include "StudentKey.h"
 #include "Student.h"
 #include "BinaryTree.h"
+#include "TNode.h"
 
 using namespace std;
+
+
+
 
 int main()
 {
@@ -139,7 +143,14 @@ int main()
 	cout << newTree.root->getKey() << endl;
 	//cout << newTree.remove(newTree.root->getKey()) << endl;
 	cout << newTree.remove(newTree.root->getpLeft()->getKey()) << endl;
+	newTree.root->nullifyPLeft();
+	//newTree.origRemove(newTree.root->getpLeft()->getKey());
 	//cout << newTree.remove(newTree.root->getpLeft()->getKey()) << endl;
+
+	//x.setPLeft(newTree.root->getpLeft());
+	//x.setPRight(newTree.root->getpRight());
+
+	
 
 
 	cout << "\nCount: " << newTree.count() << endl;
@@ -160,6 +171,7 @@ int main()
 
 
 	
+	cout << "\nCount: " << newTree.count() << endl;
 
 	//ORDER OF INSERTION
 	/*17637150501714504694

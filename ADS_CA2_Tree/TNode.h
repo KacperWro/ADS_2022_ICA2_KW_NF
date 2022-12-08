@@ -114,17 +114,25 @@ public:
 		}
 
 	}
-	void up1LayerAndDeleteChild(K key)
+	void up1LayerAndDeleteChild()
 	{
-		if (key == this->key)
-		{
-			parent = new TNode();
-			parent = this->key->getParent();
-			if (parent->getpLeft == key)
-			{
+		//delete this->getpLeft();
+		cout << "FUCKER" << endl;
 
-			}
-		}
+		TNode x = TNode(this->getpLeft()->getKey(), this->getpLeft()->getData());
+		x.setPLeft(this->getpLeft());
+		x.setPRight(this->getpRight());
+
+		//cout << this->getpLeft()->getKey();
+
+		delete x.getpLeft();
+		cout << "yeeeeeeeeeeeeeeeeeeee" << endl;
+		
+	}
+
+	void jusDel()
+	{
+		delete this;
 	}
 
 
@@ -179,7 +187,11 @@ public:
 	TNode* getParent() const { return this->parent; }
 	void setPLeft(TNode* newLeft) { this->pLeft = newLeft; }
 	void setPRight(TNode* newRight) { this->pRight = newRight; }
-	void nullifyPLeft() { this->pLeft = nullptr; }
+	void nullifyPLeft() { 
+		delete this->pLeft;
+		this->pLeft = nullptr;
+		
+	}
 	void nullifyPRight() { this->pRight = nullptr; }
 	void setData(E data) { this->data = data; }
 
