@@ -34,9 +34,10 @@ public:
 
 	~TNode() { 
 		cout << "Destructor called" << endl;
-		delete this->pLeft; 
-		delete this->pRight;
-		delete this->parent;
+		//delete this->pLeft; 
+		//delete this->pRight;
+		pLeft = nullptr;
+		pRight = nullptr;
 	}
 
 	int count()
@@ -85,6 +86,45 @@ public:
 			}
 		}
 
+	}
+
+	void deleteNode()
+	{
+		//counter--;
+		if (pLeft == nullptr && pRight == nullptr)
+		{
+			delete this;
+
+		}
+		else {
+			if (pLeft != nullptr)
+			{
+				
+				pLeft->deleteNode();
+				pLeft = nullptr;
+				
+			}
+			if (pRight != nullptr)
+			{
+				
+				pRight->deleteNode();
+				pRight = nullptr;
+
+			}
+		}
+
+	}
+	void up1LayerAndDeleteChild(K key)
+	{
+		if (key == this->key)
+		{
+			parent = new TNode();
+			parent = this->key->getParent();
+			if (parent->getpLeft == key)
+			{
+
+			}
+		}
 	}
 
 

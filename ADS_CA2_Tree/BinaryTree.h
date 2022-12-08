@@ -95,8 +95,25 @@ public:
 		return nullptr;
 	}
 
-
 	bool remove(K key)
+	{
+		TNode<size_t, Student>* toBeFound = search(key);
+		if (toBeFound != nullptr) {
+			toBeFound->deleteNode();
+			cout << "right before deletion" << endl;
+			//delete toBeFound;
+			return true;
+		}
+		else {
+			return false;
+		}
+
+		
+
+		
+	}
+
+	/*bool remove(K key)
 	{
 		TNode<size_t, Student>* toBeRemoved = root;
 		TNode<size_t, Student>* parent = nullptr;
@@ -123,6 +140,9 @@ public:
 		}
 		if (!found)
 			return false;
+
+		delete toBeRemoved;
+		toBeRemoved = nullptr;
 
 		if (toBeRemoved->getpLeft() == nullptr || toBeRemoved->getpRight() == nullptr)
 		{
@@ -167,7 +187,7 @@ public:
 			smallestParent->setPLeft(smallest->getpLeft());
 		}
 
-	}
+	}*/
 
 	/*bool removeWithAllChildren(K key)
 	{

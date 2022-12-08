@@ -26,7 +26,7 @@ int main()
 
 	BinaryTree<size_t, Student> newTree;
 
-	for (int i = 1; i < 13; i++) {
+	for (int i = 1; i < 21; i++) {
 		string timeDelimiter = ":";
 
 		//DATE OF BIRTH
@@ -105,21 +105,9 @@ int main()
 	cout << "\nDepth!: " << newTree.depth(dummy2.getHash()) << endl;
 	cout << "\nDepth!: " << newTree.depth(dummy3.getHash()) << endl;
 	cout << "\nDepth!: " << newTree.depth(dummy4.getHash()) << endl;
-	cout << "\nDepth!: " << newTree.depth(dummy5.getHash()) << endl;
+	cout << "\nDepth!: " << newTree.depth(dummy5.getHash()) << endl; 
 	cout << "\nDepth!: " << newTree.depth(dummy6.getHash()) << endl;
 	cout << "\nDepth!: " << newTree.depth(dummy7.getHash()) << endl;
-	cout << "\nDepth!: " << newTree.depth(dummy8.getHash()) << endl;
-	cout << "\nDepth!: " << newTree.depth(dummy9.getHash()) << endl;
-	cout << "\nDepth!: " << newTree.depth(dummy10.getHash()) << endl;
-	cout << "\nDepth!: " << newTree.depth(dummy11.getHash()) << endl;
-
-
-
-	int height = 0;
-	int max = 0;
-	newTree.getHeight(height, max, dummy3.getHash());
-	cout << "\nHeight: " << max << endl;
-
 	//cout << "\nCount: " << newTree.count() << endl;
 
 
@@ -132,6 +120,46 @@ int main()
 	{
 		myStudent->getData().print();
 	}
+
+	cout << "\nCount: " << newTree.count() << endl;
+
+
+
+	/*cout << newTree.remove(newTree.root->getKey()) << endl;
+
+
+	if (newTree.root == nullptr) {
+		cout << "Student not found" << endl;
+	}
+	else
+	{
+		newTree.root->getData().print();
+	}*/
+
+	cout << newTree.root->getKey() << endl;
+	//cout << newTree.remove(newTree.root->getKey()) << endl;
+	cout << newTree.remove(newTree.root->getpLeft()->getKey()) << endl;
+	//cout << newTree.remove(newTree.root->getpLeft()->getKey()) << endl;
+
+
+	cout << "\nCount: " << newTree.count() << endl;
+	//cout << newTree.root->getKey() << endl;
+	//cout << newTree.root->getpLeft()->getpLeft()->getKey() << endl;
+	//cout << newTree.root->getpLeft()->getKey() << endl;
+
+
+	cout << newTree.root->getKey() << endl;
+	cout << newTree.root->getpRight()->getKey() << endl;
+	cout << newTree.root->getpRight()->getpLeft()->getKey() << endl;
+	cout << newTree.root->getpRight()->getpLeft()->getpLeft()->getKey() << endl;
+	cout << newTree.root->getpRight()->getpLeft()->getpLeft()->getpRight()->getKey() << endl;
+	//cout << newTree.root->getpRight()->getpLeft()->getpLeft()->getpRight()->getpRight()->getKey() << endl;
+	cout << newTree.root->getpRight()->getpRight()->getKey() << endl;
+	cout << newTree.root->getpRight()->getpRight()->getpRight()->getKey() << endl;
+	cout << newTree.root->getpRight()->getpRight()->getpRight()->getpLeft()->getKey() << endl;
+
+
+	
 
 	//ORDER OF INSERTION
 	/*17637150501714504694
@@ -151,7 +179,7 @@ int main()
 	//}
 	//else
 	//{
-	//	newerStudent->getData().print();
+	//	newerStudent->getData().print();*/--
 	//}
 
 
