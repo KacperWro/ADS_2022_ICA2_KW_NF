@@ -15,19 +15,19 @@ template <typename K, typename E>
 class BinaryTree
 {
 public:
-	TNode<size_t, Student>* root;
+	TNode<K, E>* root;
 
 	BinaryTree()
 	{
 		this->root = nullptr;
 	}
 
-	BinaryTree(TNode<size_t, Student>* root) {
+	BinaryTree(TNode<K, E>* root) {
 		this->root = root;
 	}
 
 
-	void addItemToArray(TNode<size_t, Student>* node, int& pos, TNode<size_t, Student>* arr)
+	void addItemToArray(TNode<K, E>* node, int& pos, TNode<K, E>* arr)
 	{
 		if (node != nullptr)
 		{
@@ -40,9 +40,9 @@ public:
 	}
 
 
-	TNode<size_t, Student>* toArray()
+	TNode<K, E>* toArray()
 	{
-		TNode<size_t, Student>* arr = new TNode<size_t, Student>[root->count()];
+		TNode<K, E>* arr = new TNode<K, E>[root->count()];
 		int pos = 0;
 		addItemToArray(root, pos, arr);
 		return arr;
@@ -82,7 +82,7 @@ public:
 	}
 
 
-	BinaryTree getSubTree(TNode<size_t, Student>* newRoot) {
+	BinaryTree getSubTree(TNode<K, E>* newRoot) {
 		return BinaryTree(newRoot);
 	}
 
@@ -91,7 +91,7 @@ public:
 		if (root == nullptr)
 		{
 			//cout << "\nroot pointer is null" << endl;
-			root = new TNode<size_t, Student>(key, data);
+			root = new TNode<K, E>(key, data);
 		}
 		else
 		{
@@ -101,9 +101,9 @@ public:
 	}
 
 
-	TNode<size_t, Student>* search(K key) {
-		TNode<size_t, Student>* toBeFound = root;
-		TNode<size_t, Student>* parent = nullptr;
+	TNode<K, E>* search(K key) {
+		TNode<K, E>* toBeFound = root;
+		TNode<K, E>* parent = nullptr;
 		bool found = false;
 
 		while (!found && toBeFound != nullptr)
@@ -130,8 +130,8 @@ public:
 
 	bool remove(K currentKey, K originalKey)
 	{
-		TNode<size_t, Student>* toBeRemoved = this->root;
-		TNode<size_t, Student>* parent = nullptr;
+		TNode<K, E>* toBeRemoved = this->root;
+		TNode<K, E>* parent = nullptr;
 		bool found = false;
 
 		while (!found && toBeRemoved != nullptr)
@@ -168,7 +168,7 @@ public:
 		if (toBeRemoved->getpLeft() == nullptr && toBeRemoved->getpRight() == nullptr) {
 			cout << "deleting: " << currentKey << endl;
 
-			TNode<size_t, Student>* parentNode = toBeRemoved->getParent();
+			TNode<K, E>* parentNode = toBeRemoved->getParent();
 
 			if (parentNode == nullptr) {
 				this->clear();
@@ -196,8 +196,8 @@ public:
 	}
 
 	size_t depth(K key) {
-		TNode<size_t, Student>* toBeFound = root;
-		TNode<size_t, Student>* parent = nullptr;
+		TNode<K, E>* toBeFound = root;
+		TNode<K, E>* parent = nullptr;
 		bool found = false;
 		size_t layer_num = 0;
 
@@ -226,7 +226,7 @@ public:
 
 	void getHeight(int& counter, int& max, K key)
 	{
-		TNode<size_t, Student>* toBeFound = search(key);
+		TNode<K, E>* toBeFound = search(key);
 		toBeFound->getHeight(counter, max);
 	}
 

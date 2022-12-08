@@ -81,8 +81,8 @@ vector<string> splitString(string str, string delimiter)
 	return words;
 }
 
-
-void createBalancedTree(BinaryTree<size_t, Student>& tree, int min, int max, TNode<size_t, Student>* arr)
+template <typename K, typename E>
+void createBalancedTree(BinaryTree<K, E>& tree, int min, int max, TNode<K, E>* arr)
 {
 	if (min < max)
 	{
@@ -94,9 +94,10 @@ void createBalancedTree(BinaryTree<size_t, Student>& tree, int min, int max, TNo
 	}
 }
 
-void balance(BinaryTree<size_t, Student>& tree)
+template <typename K, typename E>
+void balance(BinaryTree<K, E>& tree)
 {
-	TNode<size_t, Student>* arr = tree.toArray();
+	TNode<K, E>* arr = tree.toArray();
 	int max = tree.count();
 	tree.clear();
 	createBalancedTree(tree, 0, max, arr);
