@@ -14,7 +14,9 @@ namespace ADSCA2BinTreeTests
 	TEST_CLASS(ADSCA2BinTreeTests)
 	{
 	public:
-		vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
+		//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
+		vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
+
 
 		//FUNCTION FOR CREATING SAMPLE BINARY TREE FROM CSV FILE TO USE FOR TESTING
 		BinaryTree<size_t, Student> sampleTree(int size) {

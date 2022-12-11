@@ -6,6 +6,7 @@
 #include <vector>
 #include <string>
 #include <regex>
+#include <random>
 #include "Student.h"
 #include "StudentKey.h"
 #include "BinaryTree.h"
@@ -102,4 +103,46 @@ void balance(BinaryTree<K, E>& tree)
 	tree.clear();
 	createBalancedTree(tree, 0, max, arr);
 	delete[] arr;
+}
+
+
+/// <summary>
+/// Generates a random string of user-defined length
+/// </summary>
+/// <param name="length"></param>
+/// <returns></returns>
+/// <see>https://inversepalindrome.com/blog/how-to-create-a-random-string-in-cpp</see>
+string getRandomString(size_t length)
+{
+	const string CHARACTERS = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+
+	random_device random_device;
+	mt19937 generator(random_device());
+	uniform_int_distribution<> distribution(0, CHARACTERS.size() - 1);
+
+	std::string random_string;
+
+	for (std::size_t i = 0; i < length; ++i)
+	{
+		random_string += CHARACTERS[distribution(generator)];
+	}
+
+	return random_string;
+}
+
+/// <summary>
+/// Converts char array to string
+/// </summary>
+/// <param name="a"></param>
+/// <param name="size"></param>
+/// <returns></returns>
+/// <see>https://www.geeksforgeeks.org/convert-character-array-to-string-in-c/</see>
+string to_string(char* a, int size)
+{
+	int i;
+	string s = "";
+	for (i = 0; i < size; i++) {
+		s = s + a[i];
+	}
+	return s;
 }
