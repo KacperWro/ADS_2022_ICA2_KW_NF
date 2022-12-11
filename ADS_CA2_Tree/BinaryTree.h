@@ -72,10 +72,14 @@ public:
 	{
 		if (node != nullptr)
 		{
+			//As long as the current depth is less than or equal to the max depth, the function will continue to print the contents of the nodes
 			if (currentDepth++ <= maxDepth) {
 				cout << "Current depth: " << currentDepth << endl;
 				printToDepthN(node->getpLeft(), maxDepth, currentDepth++);
 				node->getData().print();
+
+				//We are decrementing currentDepth as the current node has 2 children, which are on the same depth, so have to decrement it so that the children of
+				//any node don't end up getting missed
 				currentDepth--;
 				printToDepthN(node->getpRight(), maxDepth, currentDepth++);
 			}
@@ -91,13 +95,12 @@ public:
 	{
 		if (root == nullptr)
 		{
-			//cout << "\nroot pointer is null" << endl;
+			//If the root is a nullptr, the node that we are trying to insert into the tree will become the root of that tree
 			root = new TNode<K, E>(key, data);
 			return true;
 		}
 		else
 		{
-			//cout << "\nroot pointer is not null" << endl;
 			bool insertHappened = root->insert(key, data);
 			return insertHappened;
 		}
@@ -133,63 +136,69 @@ public:
 
 	bool remove(K currentKey, K originalKey)
 	{
-		TNode<K, E>* toBeRemoved = this->root;
-		TNode<K, E>* parent = nullptr;
-		bool found = false;
+		//In the first call, we pass in the originalKey and currentKey which will initially be the same key
+		//As the function gets called recursively, the value of originalKey will stay the same
 
-		while (!found && toBeRemoved != nullptr)
-		{
-			if (toBeRemoved->getKey() == currentKey)
-			{
-				found = true;
-			}
-			else
-			{
-				parent = toBeRemoved;
-				if (toBeRemoved->getKey() > currentKey)
-				{
-					toBeRemoved = toBeRemoved->getpLeft();
-				}
-				else
-				{
-					toBeRemoved = toBeRemoved->getpRight();
-				}
-			}
-		}
-		if (!found)
+		TNode<K, E>* toBeRemoved = search(currentKey);
+		if (toBeRemoved == nullptr) {
 			return false;
+		}
 
+		//If the left child of the node that we are trying to delete is not null, then we call the remove function on that left child by passing in the left child's
+		//key and also the key of the original key that we want to delete (we need to keept track of it at all times)
 		if (toBeRemoved->getpLeft() != nullptr) {
 			cout << "call remove left" << endl;
 			remove(toBeRemoved->getpLeft()->getKey(), originalKey);
 		}
+
+		//Similarily to the left child of the node, if the right child of the node that we want to delete is not null, then we also call the remove function by passing in
+		//the right child's key + the original key
 		if (toBeRemoved->getpRight() != nullptr) {
 			cout << "call remove right" << endl;
 			remove(toBeRemoved->getpRight()->getKey(), originalKey);
 		}
 
+
+
+		//As long as the two if statements above return true, the remove function will be called recursively on the node's children. Once we reach a node that does not have
+		//any children, we can safely delete that node, and then we call the remove function on the original node that we wanted to delete
+
+		//We continue calling the the remove function on the original key as long as the node that we want to delete still has children
+		//Once it has no more remaining children, then we can finally delete that node
+
+
+
+
+		//If the two above if statements return false, then this statement is guaranteed to return true
 		if (toBeRemoved->getpLeft() == nullptr && toBeRemoved->getpRight() == nullptr) {
 			cout << "deleting: " << currentKey << endl;
-
 			TNode<K, E>* parentNode = toBeRemoved->getParent();
 
+			//If the node that we want to delete does not have a parent node, then we know that the node that we want to delete is the root node of the binary tree,
+			//and we call the clear function to set the root node to nullptr
 			if (parentNode == nullptr) {
 				this->clear();
 				return true;
 			}
 
+			//We check if the node that we currently want to delete is it's parent's left or right child
+			//If the node that we currently want to delete is it's parent's left child, then we delete that parent node's left child and set it to nullptr
 			if (parentNode->getpLeft() != nullptr && parentNode->getpLeft()->getKey() == currentKey) {
 				delete parentNode->getpLeft();
 				parentNode->setPLeft(nullptr);
 				return true;
 			}
 
+			//If the node that we currently want to delete is it's parent's right child, then we delete that parent node's right child and set it to nullptr
 			if (parentNode->getpRight() != nullptr && parentNode->getpRight()->getKey() == currentKey) {
 				delete parentNode->getpRight();
 				parentNode->setPRight(nullptr);
 				return true;
 			}
 
+			//As long as the currentKey is not equal to the original key, or in other words, as long as the original node that we want to delete has children, we call the
+			//remove function recursively. This check is just so that the function doesn't continue to delete the original nodes' parent nodes after we already deleted
+			//the node that we wanted to delete
 			if (currentKey != originalKey) {
 				remove(originalKey, originalKey);
 			}

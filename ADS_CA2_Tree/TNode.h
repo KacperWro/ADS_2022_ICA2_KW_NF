@@ -50,17 +50,11 @@ public:
 
 	void getHeight(int& counter, int& max)
 	{
-		//counter--;
 		if (pLeft == nullptr && pRight == nullptr)
 		{
-			//if (counter = 0)
-			//	break;
 			if (counter > max) {
 				max = counter;
 			}
-
-			//counter--;
-
 		}
 		else {
 			if (pLeft != nullptr)
@@ -84,22 +78,24 @@ public:
 		
 		if (key == this->key)
 		{
-			//cout << "id is the same" << endl;
+			//If the binary tree already has a node associated with the passed in key, then we don't insert anything into the tree
 			return false;
 		}
 		else if (key < this->key)
 		{
-			//cout << "else if statement" << endl;
+			//If the value of the passed in key is smaller than they value of the key of the node that this function is being invoked on
+			//then go to the left child of the invoked node
+			
 			if (pLeft == nullptr)
 			{
+				//If that left child is a nullptr, create a new TNode made up of the passed in key and data and assign it to the left child
 				pLeft = new TNode<K, E>(key, data);
 				pLeft->parent = this;
-				//cout << "inserted into left child" << endl;
 				return true;
 			}
 			else
 			{
-				//cout << "left child is not null" << endl;
+				//Otherwise, invoke the insert function on that left child
 				pLeft->insert(key, data);
 			}
 
@@ -107,17 +103,15 @@ public:
 		}
 		else
 		{
-			//cout << "else statement" << endl;
+			//The right child is treated the same way as the left child (described above)
 			if (pRight == nullptr)
 			{
 				pRight = new TNode<K, E>(key, data);
 				pRight->parent = this;
-				//cout << "inserted into right child" << endl;
 				return true;
 			}
 			else
 			{
-				//cout << "right child is not null" << endl;
 				pRight->insert(key, data);
 			}
 
