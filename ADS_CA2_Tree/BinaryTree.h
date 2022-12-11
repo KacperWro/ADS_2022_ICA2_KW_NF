@@ -96,7 +96,7 @@ public:
 		if (root == nullptr)
 		{
 			//If the root is a nullptr, the node that we are trying to insert into the tree will become the root of that tree
-			root = new TNode<K, E>(key, data);
+			root = new TNode<K, E>(key, data); 
 			return true;
 		}
 		else
@@ -178,7 +178,7 @@ public:
 		//If the two above if statements return false, then this statement is guaranteed to return true
 		if (toBeRemoved->getpLeft() == nullptr && toBeRemoved->getpRight() == nullptr) {
 			cout << "deleting: " << currentKey << endl;
-			TNode<K, E>* parentNode = toBeRemoved->getParent();
+			TNode<K, E>* parentNode = toBeRemoved->getParent(); //getting the parent node of the current node that we want to delete
 
 			//If the node that we want to delete does not have a parent node, then we know that the node that we want to delete is the root node of the binary tree,
 			//and we call the clear function to set the root node to nullptr
