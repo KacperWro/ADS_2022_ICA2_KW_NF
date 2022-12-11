@@ -62,10 +62,11 @@ public:
 	}
 
 
-	void printToDepthN(int maxDepth)
+	bool printToDepthN(int maxDepth)
 	{
 		this->printToDepthN(root, maxDepth, 0);
 		cout << endl;
+		return true;
 	}
 	void printToDepthN(TNode<K, E>* node, int maxDepth, int currentDepth)
 	{

@@ -3,6 +3,8 @@
 #include "../ADS_CA2_Tree/BinaryTree.h"
 #include "../ADS_CA2_Tree/TNode.h"
 #include "../ADS_CA2_Tree/Utilities.h"
+#include "../ADS_CA2_Tree/Student.h"
+#include "../ADS_CA2_Tree/StudentKey.h"
 #include <vector>
 using namespace std;
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -73,7 +75,7 @@ namespace ADSCA2BinTreeTests
 		Test that the search returns nullptr if binary tree empty
 		*/
 
-		TEST_METHOD(TestSearchEmpty)
+		TEST_METHOD(TestSearchEmptyTree)
 		{
 			BinaryTree<size_t, Student> newTree = sampleTree(0);
 			StudentKey sampleKey(delimitedRows[22][0], delimitedRows[22][2], delimitedRows[22][6]);
@@ -93,6 +95,7 @@ namespace ADSCA2BinTreeTests
 			StudentKey sampleKey(delimitedRows[9][0], delimitedRows[9][2], delimitedRows[9][6]);
 			TNode<size_t, Student>* searchedNode = newTree.search(sampleKey.getHash());
 
+			//TESTING THAT THE KEY OF THE FOUND NODE IS THE SAME AS THE KEY PASSED INTO THE SEARCH FUNCTION
 			Assert::AreEqual(searchedNode->getKey(), sampleKey.getHash());
 		}
 
@@ -144,6 +147,35 @@ namespace ADSCA2BinTreeTests
 			Assert::AreEqual(countBeforeInsert + 1, countAfterInsert);
 		}
 
+		/*
+		Test that number of nodes in binary tree is only increased by three after inserting three new nodes
+		*/
+
+		TEST_METHOD(TestInsertCountIncreasedBy3)
+		{
+			BinaryTree<size_t, Student> newTree = sampleTree(2);
+
+			int countBeforeInsert = newTree.count();
+
+			Student sampleStudent1 = getSampleStudent(9);
+			StudentKey sampleKey1(delimitedRows[9][0], delimitedRows[9][2], delimitedRows[9][6]);
+			newTree.insert(sampleKey1.getHash(), sampleStudent1);
+
+			Student sampleStudent2 = getSampleStudent(12);
+			StudentKey sampleKey2(delimitedRows[12][0], delimitedRows[12][2], delimitedRows[12][6]);
+			newTree.insert(sampleKey2.getHash(), sampleStudent2);
+
+			Student sampleStudent3 = getSampleStudent(15);
+			StudentKey sampleKey3(delimitedRows[15][0], delimitedRows[15][2], delimitedRows[15][6]);
+			newTree.insert(sampleKey3.getHash(), sampleStudent3);
+
+			int countAfterInsert = newTree.count();
+
+			//SINCE WE ARE INSERTING THREE NEW NODES, THE COUNT OF NODES IN THE BINARY TREE WILL BE INCREASED BY 3
+			Assert::AreEqual(countBeforeInsert + 3, countAfterInsert);
+		}
+
+
 
 		/*
 		Test that a node gets rejected since it already exists in the tree
@@ -175,7 +207,7 @@ namespace ADSCA2BinTreeTests
 			newTree.remove(toBeRemoved->getKey(), toBeRemoved->getKey());
 			int countAfterDelete = newTree.count();
 
-			//Since we are only deleting a leaf (meaning it has no children), we expect the total number of nodes to be decrased by 1
+			//Since we are only deleting a leaf (meaning it has no children), we expect the total number of nodes to be decreased by 1
 			Assert::AreEqual(countAfterDelete, countBeforeDelete - 1);
 		}
 
@@ -241,10 +273,57 @@ namespace ADSCA2BinTreeTests
 		}
 
 
-		TEST_METHOD(TestPrint)
+		//Test that we are able to print all the nodes in a tree to the depth N (May need to update)
+		TEST_METHOD(TestPrintToDepthN)
 		{
-
+			BinaryTree<size_t, Student> newTree = sampleTree(21);
+			Assert::IsTrue(newTree.printToDepthN(2));
 		}
+
+
+		//Test creating a new sub binary tree from a pre-existing binary tree
+		TEST_METHOD(TestGetNewSubTreeFrom20)
+		{
+			BinaryTree<size_t, Student> newTree = sampleTree(20);
+			BinaryTree<size_t, Student> subTree = newTree.root->getpLeft(); //Creating new sub tree from root's left child
+
+			int countOfSubTree = subTree.count();
+
+			//Counts how many nodes stem from the root's right child
+			int countRightChildRoot = newTree.root->getpRight()->count();
+
+			//IN THE EXPECTED VALUE WE ARE TAKING AWAY 1 AS WE ARE NOT TAKING THE ROOT NODE INTO ACCOUNT BECAUSE THE NEW SUB TREE DOES NOT INCLUDE THE ROOT NODE
+			Assert::AreEqual(newTree.root->count() - countRightChildRoot - 1, countOfSubTree);
+		}
+
+		TEST_METHOD(TestGetNewSubTreeFrom100)
+		{
+			BinaryTree<size_t, Student> newTree = sampleTree(100);
+			BinaryTree<size_t, Student> subTree = newTree.root->getpLeft(); //Creating new sub tree from root's left child
+
+			int countOfSubTree = subTree.count();
+
+			//Counts how many nodes stem from the root's right child
+			int countRightChildRoot = newTree.root->getpRight()->count();
+
+			//IN THE EXPECTED VALUE WE ARE TAKING AWAY 1 AS WE ARE NOT TAKING THE ROOT NODE INTO ACCOUNT BECAUSE THE NEW SUB TREE DOES NOT INCLUDE THE ROOT NODE
+			Assert::AreEqual(newTree.root->count() - countRightChildRoot - 1, countOfSubTree);
+		}
+
+		TEST_METHOD(TestGetNewSubTreeFrom500)
+		{
+			BinaryTree<size_t, Student> newTree = sampleTree(500);
+			BinaryTree<size_t, Student> subTree = newTree.root->getpLeft(); //Creating new sub tree from root's left child
+
+			int countOfSubTree = subTree.count();
+
+			//Counts how many nodes stem from the root's right child
+			int countRightChildRoot = newTree.root->getpRight()->count();
+
+			//IN THE EXPECTED VALUE WE ARE TAKING AWAY 1 AS WE ARE NOT TAKING THE ROOT NODE INTO ACCOUNT BECAUSE THE NEW SUB TREE DOES NOT INCLUDE THE ROOT NODE
+			Assert::AreEqual(newTree.root->count() - countRightChildRoot - 1, countOfSubTree);
+		}
+
 
 		/*
 		Test Depth
@@ -262,225 +341,74 @@ namespace ADSCA2BinTreeTests
 		*/
 		TEST_METHOD(TestDepthFunctionOnLeaf)
 		{
-			vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
-
-			BinaryTree<size_t, Student> newTree;
-
-			for (int i = 1; i < 9; i++) {
-				string timeDelimiter = ":";
-
-				//DATE OF BIRTH
-				Date dateOfBirth(delimitedRows[i][5]);
-
-				//LAST LOG ON DATE
-				Date lastLogOnDate(delimitedRows[i][10]);
-
-				//LAST LOG ON TIME
-				string logOnTime = delimitedRows[i][11];
-				unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-				logOnTime = logOnTime.substr(3);
-				unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-
-				TimeHHMM lastLogOnTime(hours, minutes);
-
-				//JOINED ON
-				Date joinedOn(delimitedRows[i][12]);
-
-				Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-					delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-				StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-
-				newTree.insert(newKey.getHash(), newStudent);
-
-			}
-
+			BinaryTree<size_t, Student> newTree = sampleTree(9);
 			StudentKey dummyKey(delimitedRows[8][0], delimitedRows[8][2], delimitedRows[8][6]);
-
 			size_t depthOfLeafNode = newTree.depth(dummyKey.getHash());
 
 			int integerizedDepth = static_cast<int>(depthOfLeafNode);
 			int actualDepth = 3;
 
-			
-
 			try {
-
 				Assert::AreEqual(integerizedDepth, actualDepth);
 			}
 			catch (const std::out_of_range& e)
 			{
-				cout << "The node doesnt exist in the tree" << endl;
-				int zero = 0;
-				int one = 1;
-				Assert::AreEqual(one, zero);
+				//CATCHING EXCEPTION IN CASE NODE DOES NOT EXIST
+				Assert::AreEqual(1, 0);
 			}
 		}
 
 		TEST_METHOD(TestDepthFunctionOnMidNode)
 		{
-			vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
-
-			BinaryTree<size_t, Student> newTree;
-
-			for (int i = 1; i < 9; i++) {
-				string timeDelimiter = ":";
-
-				//DATE OF BIRTH
-				Date dateOfBirth(delimitedRows[i][5]);
-
-				//LAST LOG ON DATE
-				Date lastLogOnDate(delimitedRows[i][10]);
-
-				//LAST LOG ON TIME
-				string logOnTime = delimitedRows[i][11];
-				unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-				logOnTime = logOnTime.substr(3);
-				unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-
-				TimeHHMM lastLogOnTime(hours, minutes);
-
-				//JOINED ON
-				Date joinedOn(delimitedRows[i][12]);
-
-				Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-					delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-				StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-
-				newTree.insert(newKey.getHash(), newStudent);
-
-			}
-
+			BinaryTree<size_t, Student> newTree = sampleTree(9);
 			StudentKey dummyKey(delimitedRows[2][0], delimitedRows[2][2], delimitedRows[2][6]);
-
 			size_t depthOfLeafNode = newTree.depth(dummyKey.getHash());
 
 			int integerizedDepth = static_cast<int>(depthOfLeafNode);
 			int actualDepth = 1;
 
-			
-
-
 			try {
 
 				Assert::AreEqual(integerizedDepth, actualDepth);
 			}
 			catch (const std::out_of_range& e)
 			{
-				cout << "The node doesnt exist in the tree" << endl;
-				int zero = 0;
-				int one = 1;
-				Assert::AreEqual(one, zero);
+				//CATCHING EXCEPTION IN CASE NODE DOES NOT EXIST
+				Assert::AreEqual(1, 0);
 			}
 		}
 
-		TEST_METHOD(TestDepthFunctionOnInexistentNode)
+		TEST_METHOD(TestDepthFunctionOnNonExistentNode)
 		{
-			vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
+			//WE ARE EXPECTING THIS PARTICULAR TEST TO FAIL
 
-			BinaryTree<size_t, Student> newTree;
-
-			for (int i = 1; i < 10; i++) {
-
-				
-					string timeDelimiter = ":";
-
-					//DATE OF BIRTH
-					Date dateOfBirth(delimitedRows[i][5]);
-
-					//LAST LOG ON DATE
-					Date lastLogOnDate(delimitedRows[i][10]);
-
-					//LAST LOG ON TIME
-					string logOnTime = delimitedRows[i][11];
-					unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-					logOnTime = logOnTime.substr(3);
-					unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-
-					TimeHHMM lastLogOnTime(hours, minutes);
-
-					//JOINED ON
-					Date joinedOn(delimitedRows[i][12]);
-
-					Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-						delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-					StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-
-				if (i < 9) {
-					newTree.insert(newKey.getHash(), newStudent);
-				}
-
-			}
-
-			//StudentKey dummyKey(delimitedRows[10][0], delimitedRows[1][2], delimitedRows[1][6]);
-			size_t hashForTenth = 4690520465930778477;
-			int integerizedHash = static_cast<int>(hashForTenth);
+			BinaryTree<size_t, Student> newTree = sampleTree(10);
+			StudentKey dummyKey(delimitedRows[20][0], delimitedRows[20][2], delimitedRows[20][6]);
+			size_t size_tHash = dummyKey.getHash();
+			int intHash = static_cast<int>(size_tHash);
 			
-
-
-
 			try {
-				size_t depthOfLeafNode = newTree.depth(hashForTenth);
-				int integerizedDepth = static_cast<int>(depthOfLeafNode);
+
+				size_t depthOfLeafNode = newTree.depth(size_tHash);
+				int intDepth = static_cast<int>(depthOfLeafNode);
 				int actualDepth = 0;
 
-				Assert::AreEqual(integerizedDepth, actualDepth);
+				Assert::AreEqual(intDepth, actualDepth);
 			}
 			catch (const std::out_of_range& e)
 			{
-				cout << "The node doesnt exist in the tree" << endl;
-				int zero = 0;
-				Assert::AreEqual(integerizedHash, zero);
+				//CATCHING EXCEPTION IN CASE NODE DOES NOT EXIST
+				Assert::AreEqual(intHash, 0);
 			}
-
-			
 		}
 
 		TEST_METHOD(TestDepthFunctionOnRoot)
 		{
-			vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
-
-			BinaryTree<size_t, Student> newTree;
-
-			for (int i = 1; i < 10; i++) {
-
-
-				string timeDelimiter = ":";
-
-				//DATE OF BIRTH
-				Date dateOfBirth(delimitedRows[i][5]);
-
-				//LAST LOG ON DATE
-				Date lastLogOnDate(delimitedRows[i][10]);
-
-				//LAST LOG ON TIME
-				string logOnTime = delimitedRows[i][11];
-				unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-				logOnTime = logOnTime.substr(3);
-				unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-
-				TimeHHMM lastLogOnTime(hours, minutes);
-
-				//JOINED ON
-				Date joinedOn(delimitedRows[i][12]);
-
-				Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-					delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-				StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-
-			
-				newTree.insert(newKey.getHash(), newStudent);
-				
-
-			}
-
+			BinaryTree<size_t, Student> newTree = sampleTree(10);
 			// Root hash = 12275897570252230347
 
 			try {
-				size_t depthOfLeafNode = newTree.depth(12275897570252230347);
+				size_t depthOfLeafNode = newTree.depth(newTree.root->getKey());
 				int integerizedDepth = static_cast<int>(depthOfLeafNode);
 				int actualDepth = 0;
 
@@ -488,13 +416,77 @@ namespace ADSCA2BinTreeTests
 			}
 			catch (const std::out_of_range& e)
 			{
-				cout << "The node doesnt exist in the tree" << endl;
-				int one = 1;
-				int zero = 0;
-				Assert::AreEqual(one, zero);
+				//CATCHING EXCEPTION IN CASE NODE DOES NOT EXIST
+				Assert::AreEqual(1, 0);
 			}
+		}
 
 
+		TEST_METHOD(TestHeightFunctionWith1Node)
+		{
+			BinaryTree<size_t, Student> newTree = sampleTree(2);
+
+			int max = 0;
+			int counter = 0;
+
+			newTree.getHeight(counter, max, newTree.root->getKey());
+
+			//Since the binary tree has only 1 node (aka the root node), the expected height of this tree is 0 as the binary tree begins at height 0, and the root node is
+			//always at height 0
+			Assert::AreEqual(0, max);
+		}
+
+		TEST_METHOD(TestHeightFunctionWith2Nodes)
+		{
+			BinaryTree<size_t, Student> newTree = sampleTree(3);
+
+			int max = 0;
+			int counter = 0;
+
+			newTree.getHeight(counter, max, newTree.root->getKey());
+
+			Assert::AreEqual(1, max);
+		}
+
+		TEST_METHOD(TestBalanceUnbalancedBinaryTree)
+		{
+			BinaryTree<size_t, Student> newTree = sampleTree(20);
+			
+			//BEFORE BALANCING TREE
+			int maxBeforeBlance = 0;
+			int counter = 0;
+			newTree.getHeight(counter, maxBeforeBlance, newTree.root->getKey());
+
+			balance(newTree);
+
+			//AFTER BALANCING TREE
+			int maxAfterBalance = 0;
+			counter = 0;
+			newTree.getHeight(counter, maxAfterBalance, newTree.root->getKey());
+
+			//THE INITIAL TREE WAS UNBALANCED, THEREFORE THE MAXIMUM HEIGHT OF THE TREE AFTER BALANCE SHOULD BE SMALLER THAN THE HEIGHT OF THE INITIAL TREE BEFORE BALANCE
+			Assert::IsTrue(maxAfterBalance < maxBeforeBlance);
+		}
+
+		TEST_METHOD(TestBalanceBalancedBinaryTree)
+		{
+			BinaryTree<size_t, Student> newTree = sampleTree(3);
+
+			//BEFORE BALANCING TREE
+			int maxBeforeBlance = 0;
+			int counter = 0;
+			newTree.getHeight(counter, maxBeforeBlance, newTree.root->getKey());
+
+			balance(newTree);
+
+			//AFTER BALANCING TREE
+			int maxAfterBalance = 0;
+			counter = 0;
+			newTree.getHeight(counter, maxAfterBalance, newTree.root->getKey());
+
+			//WILL RETURN TRUE AS THE ROOT HAS 1 LEFT CHILD AND 1 RIGHT CHILD (they don't have children of their own)
+			//THEREFORE, THE TREE WAS ALREADY BALANCED BEFORE CALLING THE BALANCE FUNCTION
+			Assert::IsTrue(maxAfterBalance == maxBeforeBlance);
 		}
 	};
 }
