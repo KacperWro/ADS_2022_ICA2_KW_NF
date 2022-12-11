@@ -235,11 +235,11 @@ int main()
 /// <param name="data"></param>
 /// <param name="value"></param>
 /// <returns></returns>
-template <typename T>
-int linearSearch(vector<T> data, T value)
+template <typename T, typename V>
+int linearSearch(vector<T> data, V value)
 {
 	for (int i = 0; i < data.size(); i++)
-		if (data[i] == value) return i;
+		if (data[i].getUser_id() == value) return i;
 	return -1;
 }
 
@@ -247,10 +247,10 @@ int linearSearch(vector<T> data, T value)
 /// A functor that we make to test the linearSearch in a vector - we need a functor because that's what measureTime takes!
 /// </summary>
 class LinearStringSearchFunctor {
-	vector<string> data;
+	vector<Student> data;
 	string target;
 public:
-	LinearStringSearchFunctor(vector<string> data, string target) : data(data), target(target) {};
+	LinearStringSearchFunctor(vector<Student> data, string target) : data(data), target(target) {};
 
 	int operator()() {
 		return linearSearch(data, target);
@@ -333,7 +333,7 @@ BinaryTree<size_t, Student> loadDataFromCsv(int N)
 	return newTree;
 }
 
-vector<string> loadData(int N)
+/*vector<string> loadData(int N)
 {
 	vector<string> data;
 
@@ -342,6 +342,52 @@ vector<string> loadData(int N)
 
 	for (int i = 0; i < N; i++)
 		data.push_back(getRandomString(stringLength));
+
+	return data;
+}*/
+
+
+vector<Student> loadData(int N)
+{
+	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
+	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
+
+	vector<Student> data;
+
+	for (int i = 1; i < N; i++) {
+		string timeDelimiter = ":";
+
+		//DATE OF BIRTH
+		Date dateOfBirth(delimitedRows[i][5]);
+		
+		//LAST LOG ON DATE
+		Date lastLogOnDate(delimitedRows[i][10]);
+		
+
+		//LAST LOG ON TIME
+		string logOnTime = delimitedRows[i][11];
+		unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
+		logOnTime = logOnTime.substr(3);
+		unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
+		
+
+		TimeHHMM lastLogOnTime(hours, minutes);
+		
+
+
+		//JOINED ON
+		Date joinedOn(delimitedRows[i][12]);
+		
+
+		Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
+			delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
+		
+
+		data.push_back(newStudent);
+		
+		
+	}
+		
 
 	return data;
 }
@@ -392,13 +438,19 @@ void demoBenchmarkTreeFindNode() {
 //lets benchmark how long it takes to find a specified node in the tree
 void demoBenchmarkVectorFindLast() {
 	//number of strings in the vector (like your CSV where N=1000,10000,100000)
-	int N = 1000;
+	int N = 1001;
+
+	
 
 	//get some data (yours would be data from CSV in a list/vector vs your BinaryTree)
-	vector<string> data = loadData(N);
+	vector<Student> data = loadData(N);
+	
 
 	//pick the last string in the structure
-	string searchString = data[data.size() - 1];
+	//string searchString = data[data.size() - 1];
+
+	//string name = data[data.size() - 2].getFirst_name();
+	string id = "EPA78CWQ7FF";
 
 	/******************************* IMPORTANT PART > *******************************/
 	int numberOfTests = 100;
@@ -406,7 +458,7 @@ void demoBenchmarkVectorFindLast() {
 	for (int i = 0; i < numberOfTests; i++)
 	{
 		//make up the functor
-		LinearStringSearchFunctor searchFunc(data, searchString);
+		LinearStringSearchFunctor searchFunc(data, id);
 
 		//pass the functor into measureTime
 		totalTestTimeInNS += measureTime(searchFunc);
