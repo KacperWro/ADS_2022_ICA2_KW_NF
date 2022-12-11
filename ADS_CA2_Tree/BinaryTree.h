@@ -112,8 +112,10 @@ public:
 		TNode<K, E>* parent = nullptr;
 		bool found = false;
 
+		//As long as found is false and as long as the current node is not a nullptr, repeat this while loop
 		while (!found && toBeFound != nullptr)
 		{
+			//If the key of the current node matches the key of the passed in key, then return that node
 			if (toBeFound->getKey() == key)
 			{
 				return toBeFound;
@@ -121,16 +123,20 @@ public:
 			else
 			{
 				parent = toBeFound;
+
+				//If the key of the current node is larger than the passed in key, assign the left child of that node to 'toBeFound' and go back to beginning of loop
 				if (toBeFound->getKey() > key)
 				{
 					toBeFound = toBeFound->getpLeft();
 				}
+				//Otherwise, assign the right child of the current node to 'toBeFound' and go back to beginning of loop
 				else
 				{
 					toBeFound = toBeFound->getpRight();
 				}
 			}
 		}
+		//If there is no node which has the passed in key associated with it, then we return nullptr
 		return nullptr;
 	}
 
