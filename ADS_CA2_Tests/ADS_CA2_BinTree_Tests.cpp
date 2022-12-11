@@ -12,6 +12,62 @@ namespace ADSCA2BinTreeTests
 	TEST_CLASS(ADSCA2BinTreeTests)
 	{
 	public:
+		vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
+
+		//FUNCTION FOR CREATING SAMPLE BINARY TREE FROM CSV FILE TO USE FOR TESTING
+		BinaryTree<size_t, Student> sampleTree(int size) {
+			
+			BinaryTree<size_t, Student> sampleTree;
+
+			for (int i = 1; i < size; i++) {
+				string timeDelimiter = ":";
+
+				//DATE OF BIRTH
+				Date dateOfBirth(delimitedRows[i][5]);
+
+				//LAST LOG ON DATE
+				Date lastLogOnDate(delimitedRows[i][10]);
+
+				//LAST LOG ON TIME
+				string logOnTime = delimitedRows[i][11];
+				unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
+				logOnTime = logOnTime.substr(3);
+				unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
+
+				TimeHHMM lastLogOnTime(hours, minutes);
+
+				//JOINED ON
+				Date joinedOn(delimitedRows[i][12]);
+
+				Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
+					delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
+
+				StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
+				sampleTree.insert(newKey.getHash(), newStudent);
+				cout << newKey.getHash() << endl;
+			}
+			return sampleTree;
+		}
+
+		//RETURNS A STUDENT FROM A GIVEN INDEX IN THE 'delimitedRows' VECTOR
+		Student getSampleStudent(int index) {
+			string timeDelimiter = ":";
+			Date dateOfBirth(delimitedRows[index][5]);
+			Date lastLogOnDate(delimitedRows[index][10]);
+			string logOnTime = delimitedRows[index][11];
+			unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
+			logOnTime = logOnTime.substr(3);
+			unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
+			TimeHHMM lastLogOnTime(hours, minutes);
+			Date joinedOn(delimitedRows[index][12]);
+
+			Student sampleStudent(delimitedRows[index][0], stoi(delimitedRows[index][1]), delimitedRows[index][2], delimitedRows[index][3], delimitedRows[index][4], dateOfBirth,
+				delimitedRows[index][6], delimitedRows[index][7], delimitedRows[index][8], delimitedRows[index][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[index][13]);
+
+			return sampleStudent;
+
+		}
+
 
 		/*
 		Test that the search returns nullptr if binary tree empty
@@ -19,115 +75,25 @@ namespace ADSCA2BinTreeTests
 
 		TEST_METHOD(TestSearchEmpty)
 		{
+			BinaryTree<size_t, Student> newTree = sampleTree(0);
+			StudentKey sampleKey(delimitedRows[22][0], delimitedRows[22][2], delimitedRows[22][6]);
+			TNode<size_t, Student>* searchedNode = newTree.search(sampleKey.getHash());
 
-			vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
-
-			BinaryTree<size_t, Student> newTree;
-
-			for (int i = 1; i < 21; i++) {
-				string timeDelimiter = ":";
-
-				//DATE OF BIRTH
-				Date dateOfBirth(delimitedRows[i][5]);
-
-				//LAST LOG ON DATE
-				Date lastLogOnDate(delimitedRows[i][10]);
-
-				//LAST LOG ON TIME
-				string logOnTime = delimitedRows[i][11];
-				unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-				logOnTime = logOnTime.substr(3);
-				unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-
-				TimeHHMM lastLogOnTime(hours, minutes);
-
-				//JOINED ON
-				Date joinedOn(delimitedRows[i][12]);
-
-				Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-					delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-				StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-				/*TNode<StudentKey, Student> newNode(newKey, newStudent);*/
-				//newTree.insert(newKey.getHash(), newStudent);
-				//cout << newKey.getHash() << endl;
-			}
-
-			StudentKey dummyKey(delimitedRows[9][0], delimitedRows[9][2], delimitedRows[9][6]);
-
-
-			TNode<size_t, Student>* searchedNode = newTree.search(dummyKey.getHash());
-
+			//SEARCHING FOR ANY NODE IN THIS TREE WILL RETURN 'nullptr' AS THE TREE DOES NOT CONTAIN ANY NODES
 			Assert::IsNull(searchedNode);
-
-
 		}
 
 		/*
-		Test the search returns correct pointer if node exists in tree
+		Test the search returns the correct node by comparing the key of the returned node, and the key that was passed to the search function
 		*/
 
 		TEST_METHOD(TestSearchGuaranteedInTree)
 		{
+			BinaryTree<size_t, Student> newTree = sampleTree(21);
+			StudentKey sampleKey(delimitedRows[9][0], delimitedRows[9][2], delimitedRows[9][6]);
+			TNode<size_t, Student>* searchedNode = newTree.search(sampleKey.getHash());
 
-			vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
-
-			BinaryTree<size_t, Student> newTree;
-
-			for (int i = 1; i < 21; i++) {
-				string timeDelimiter = ":";
-
-				//DATE OF BIRTH
-				Date dateOfBirth(delimitedRows[i][5]);
-
-				//LAST LOG ON DATE
-				Date lastLogOnDate(delimitedRows[i][10]);
-
-				//LAST LOG ON TIME
-				string logOnTime = delimitedRows[i][11];
-				unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-				logOnTime = logOnTime.substr(3);
-				unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-
-				TimeHHMM lastLogOnTime(hours, minutes);
-
-				//JOINED ON
-				Date joinedOn(delimitedRows[i][12]);
-
-				Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-					delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-				StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-				/*TNode<StudentKey, Student> newNode(newKey, newStudent);*/
-				newTree.insert(newKey.getHash(), newStudent);
-				//cout << newKey.getHash() << endl;
-			}
-
-			string timeDelimiter = ":";
-			Date dateOfBirth(delimitedRows[9][5]);
-			Date lastLogOnDate(delimitedRows[9][10]);
-			string logOnTime = delimitedRows[9][11];
-			unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-			logOnTime = logOnTime.substr(3);
-			unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-			TimeHHMM lastLogOnTime(hours, minutes);
-			Date joinedOn(delimitedRows[9][12]);
-
-			Student dummyStudent(delimitedRows[9][0], stoi(delimitedRows[9][1]), delimitedRows[9][2], delimitedRows[9][3], delimitedRows[9][4], dateOfBirth,
-				delimitedRows[9][6], delimitedRows[9][7], delimitedRows[9][8], delimitedRows[9][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[9][13]);
-
-
-
-			StudentKey dummyKey(delimitedRows[9][0], delimitedRows[9][2], delimitedRows[9][6]);
-
-
-			TNode<size_t, Student>* createdNode = new TNode<size_t, Student>(dummyKey.getHash(), dummyStudent);
-
-
-			TNode<size_t, Student>* searchedNode = newTree.search(dummyKey.getHash());
-
-			Assert::AreEqual(searchedNode->getKey(), createdNode->getKey());
-
+			Assert::AreEqual(searchedNode->getKey(), sampleKey.getHash());
 		}
 
 		/*
@@ -136,44 +102,13 @@ namespace ADSCA2BinTreeTests
 
 		TEST_METHOD(TestSearchErrorInProvidedKey)
 		{
-			vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
+			BinaryTree<size_t, Student> newTree = sampleTree(21);
 
-			BinaryTree<size_t, Student> newTree;
+			//USER ID AND FIRST NAME ARE FROM ONE STUDENT OBJECT, WHILE THE EMAIL HAS BEEN TAKEN FROM ANOTHER STUDENT OBJECT, RESULTING IN AN INCORRECT HASH KEY
+			StudentKey sampleKey(delimitedRows[9][0], delimitedRows[9][2], delimitedRows[10][6]);
+			TNode<size_t, Student>* searchedNode = newTree.search(sampleKey.getHash());
 
-			for (int i = 1; i < 10; i++) {
-				string timeDelimiter = ":";
-
-				//DATE OF BIRTH
-				Date dateOfBirth(delimitedRows[i][5]);
-
-				//LAST LOG ON DATE
-				Date lastLogOnDate(delimitedRows[i][10]);
-
-				//LAST LOG ON TIME
-				string logOnTime = delimitedRows[i][11];
-				unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-				logOnTime = logOnTime.substr(3);
-				unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-
-				TimeHHMM lastLogOnTime(hours, minutes);
-
-				//JOINED ON
-				Date joinedOn(delimitedRows[i][12]);
-
-				Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-					delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-				StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-				/*TNode<StudentKey, Student> newNode(newKey, newStudent);*/
-				newTree.insert(newKey.getHash(), newStudent);
-				//cout << newKey.getHash() << endl;
-			}
-
-			StudentKey dummyKey(delimitedRows[9][0], delimitedRows[9][2], delimitedRows[10][6]);
-
-
-			TNode<size_t, Student>* searchedNode = newTree.search(dummyKey.getHash());
-
+			//SEARCHING USING THIS INCORRECT KEY WILL RETURN 'nullptr' AS THIS KEY IS NOT ASSOCIATED WITH ANY NODE IN THE BINARY TREE
 			Assert::IsNull(searchedNode);
 		}
 
@@ -181,41 +116,34 @@ namespace ADSCA2BinTreeTests
 		Test that a node gets inserted since it does not already exist in the tree
 		*/
 
-		TEST_METHOD(TestInsertNovelNode)
+		TEST_METHOD(TestInsertNewNode)
 		{
-			vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
+			BinaryTree<size_t, Student> newTree = sampleTree(2);
 
-			BinaryTree<size_t, Student> newTree;
+			Student sampleStudent = getSampleStudent(9);
+			StudentKey sampleKey(delimitedRows[9][0], delimitedRows[9][2], delimitedRows[9][6]);
 
-			for (int i = 1; i < 2; i++) {
-				string timeDelimiter = ":";
-
-				//DATE OF BIRTH
-				Date dateOfBirth(delimitedRows[i][5]);
-
-				//LAST LOG ON DATE
-				Date lastLogOnDate(delimitedRows[i][10]);
-
-				//LAST LOG ON TIME
-				string logOnTime = delimitedRows[i][11];
-				unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-				logOnTime = logOnTime.substr(3);
-				unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-
-				TimeHHMM lastLogOnTime(hours, minutes);
-
-				//JOINED ON
-				Date joinedOn(delimitedRows[i][12]);
-
-				Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-					delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-				StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-				/*TNode<StudentKey, Student> newNode(newKey, newStudent);*/
-				Assert::IsTrue(newTree.insert(newKey.getHash(), newStudent));
-				//cout << newKey.getHash() << endl;
-			}
+			Assert::IsTrue(newTree.insert(sampleKey.getHash(), sampleStudent));
 		}
+
+		/*
+		Test that number of nodes in binary tree is only increased by one after inserting one new node
+		*/
+
+		TEST_METHOD(TestInsertCountIncreasedBy1)
+		{
+			BinaryTree<size_t, Student> newTree = sampleTree(2);
+
+			int countBeforeInsert = newTree.count();
+			Student sampleStudent = getSampleStudent(9);
+			StudentKey sampleKey(delimitedRows[9][0], delimitedRows[9][2], delimitedRows[9][6]);
+			newTree.insert(sampleKey.getHash(), sampleStudent);
+			int countAfterInsert = newTree.count();
+
+			//SINCE WE ARE ONLY INSERTING ONE NEW NODE, THE COUNT OF NODES IN THE BINARY TREE WILL ONLY BE INCREASED BY 1
+			Assert::AreEqual(countBeforeInsert + 1, countAfterInsert);
+		}
+
 
 		/*
 		Test that a node gets rejected since it already exists in the tree
@@ -223,122 +151,32 @@ namespace ADSCA2BinTreeTests
 
 		TEST_METHOD(TestInsertDuplicateNode)
 		{
-			vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
+			BinaryTree<size_t, Student> newTree = sampleTree(5);
 
-			BinaryTree<size_t, Student> newTree;
+			int countBeforeInsert = newTree.count();
+			Student sampleStudent = getSampleStudent(2);
+			StudentKey sampleKey(sampleStudent.getUser_id(), sampleStudent.getFirst_name(), sampleStudent.getEmail());
+			int countAfterInsert = newTree.count();
 
-			for (int i = 1; i < 2; i++) {
-				string timeDelimiter = ":";
-
-				//DATE OF BIRTH
-				Date dateOfBirth(delimitedRows[i][5]);
-
-				//LAST LOG ON DATE
-				Date lastLogOnDate(delimitedRows[i][10]);
-
-				//LAST LOG ON TIME
-				string logOnTime = delimitedRows[i][11];
-				unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-				logOnTime = logOnTime.substr(3);
-				unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-
-				TimeHHMM lastLogOnTime(hours, minutes);
-
-				//JOINED ON
-				Date joinedOn(delimitedRows[i][12]);
-
-				Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-					delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-				StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-				
-				newTree.insert(newKey.getHash(), newStudent);
-				
-			}
-
-			for (int i = 1; i < 2; i++) {
-				string timeDelimiter = ":";
-
-				//DATE OF BIRTH
-				Date dateOfBirth(delimitedRows[i][5]);
-
-				//LAST LOG ON DATE
-				Date lastLogOnDate(delimitedRows[i][10]);
-
-				//LAST LOG ON TIME
-				string logOnTime = delimitedRows[i][11];
-				unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-				logOnTime = logOnTime.substr(3);
-				unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
-
-				TimeHHMM lastLogOnTime(hours, minutes);
-
-				//JOINED ON
-				Date joinedOn(delimitedRows[i][12]);
-
-				Student newStudent(delimitedRows[i][0], stoi(delimitedRows[i][1]), delimitedRows[i][2], delimitedRows[i][3], delimitedRows[i][4], dateOfBirth,
-					delimitedRows[i][6], delimitedRows[i][7], delimitedRows[i][8], delimitedRows[i][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[i][13]);
-
-				StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
-
-				Assert::IsFalse(newTree.insert(newKey.getHash(), newStudent));
-
-			}
-
-
+			//COUNT OF NODES BEFORE INSERT AND COUNT OF NODES AFTER INSERT WILL BE THE SAME SINCE WE ARE TRYING TO INSERT A KEY WHICH ALREADY HAS A NODE ASSOCIATED WITH IT IN THE BINARY TREE
+			Assert::AreEqual(countBeforeInsert, countAfterInsert);
 		}
 
 		/*
-		Test that a leaf gets deleted and doesnt impact the rest of the tree
-		*/
+	Test that a leaf gets deleted and doesnt impact the rest of the tree
+	*/
 
 		TEST_METHOD(TestDeleteLeaf)
 		{
-			
-			/*BinaryTree<size_t, Student> newTree;
+			BinaryTree<size_t, Student> newTree = sampleTree(21);
+			TNode<size_t, Student>* toBeRemoved = newTree.root->getpLeft()->getpLeft()->getpLeft()->getpRight();
 
-				Date dob(1,1,2000);
-				TimeHHMM timez(11,11);
+			int countBeforeDelete = newTree.count();
+			newTree.remove(toBeRemoved->getKey(), toBeRemoved->getKey());
+			int countAfterDelete = newTree.count();
 
-				Student student1 = Student("123", 145, "jake", "q", "q", dob, "jake@g.com", "q", "q", "q", dob, timez, dob, "q");
-				size_t key1(1);
-				newTree.insert(key1, student1);
-
-
-				Student student2 = Student("1234", 146, "jacque", "q", "q", dob, "jacquee@g.com", "q", "q", "q", dob, timez, dob, "q");
-				size_t key2(2);
-				newTree.insert(key2, student2);
-
-				Student student3 = Student("12345", 147, "jamal", "q", "q", dob, "jamal@g.com", "q", "q", "q", dob, timez, dob, "q");
-				size_t key3(3);
-				newTree.insert(key3, student3);
-
-
-				Student student4 = Student("123456", 147, "jamie", "q", "q", dob, "jamie@g.com", "q", "q", "q", dob, timez, dob, "q");
-				size_t key4(4);
-				newTree.insert(key4, student4);
-
-				Student student5 = Student("1234567", 148, "john", "q", "q", dob, "john@g.com", "q", "q", "q", dob, timez, dob, "q");
-				size_t key5(5);
-				newTree.insert(key5, student5);
-
-			
-
-
-			cout << "\nCount: " << newTree.count() << endl;
-			cout << "\nFound and deleted?: " << newTree.removeWithAllChildren(1) << endl;
-			cout << "\nCount: " << newTree.count() << endl;
-
-
-			TNode<size_t, Student>* myStudent = newTree.search(1);
-
-			if (myStudent == nullptr) {
-				cout << "Student not found" << endl;
-			}
-			else
-			{
-				myStudent->getData().print();
-			}*/
+			//Since we are only deleting a leaf (meaning it has no children), we expect the total number of nodes to be decrased by 1
+			Assert::AreEqual(countAfterDelete, countBeforeDelete - 1);
 		}
 
 		/*
@@ -347,7 +185,15 @@ namespace ADSCA2BinTreeTests
 
 		TEST_METHOD(TestDeleteNodeWith1Child)
 		{
+			BinaryTree<size_t, Student> newTree = sampleTree(21);
+			TNode<size_t, Student>* toBeRemoved = newTree.root->getpLeft()->getpLeft()->getpLeft();
 
+			int countBeforeDelete = newTree.count();
+			newTree.remove(toBeRemoved->getKey(), toBeRemoved->getKey());
+			int countAfterDelete = newTree.count();
+
+			//Since we are only deleting a node with only 1 child that doesn't have any of its own children, we expect the total number of nodes to be decreased by 2
+			Assert::AreEqual(countAfterDelete, countBeforeDelete - 2);
 		}
 
 		/*
@@ -356,7 +202,26 @@ namespace ADSCA2BinTreeTests
 
 		TEST_METHOD(TestDeleteNodeWith2Children)
 		{
+			BinaryTree<size_t, Student> newTree = sampleTree(21);
 
+			//CREATING SUB TREE OUT OF THE NODE THAT WE WANT TO DELETE
+			BinaryTree<size_t, Student> subTree = newTree.getSubTree(newTree.root->getpLeft());
+			TNode<size_t, Student>* toBeRemoved = newTree.root->getpLeft();
+
+			//VERIFYING THAT THE NODE WE ARE DELETING HAS AT LEAST 2 CHILDREN. IF IT DOESN'T HAVE A LEFT CHILD OR A RIGHT CHILD, AN EXCEPTION SHOULD OCCUR
+			cout << subTree.root->getpLeft()->getKey();
+			cout << subTree.root->getpRight()->getKey();
+
+			int countBeforeDelete = newTree.root->count();
+
+			//WE ARE GETTING THE COUNT OF NODES IN THE NEW SUB TREE. THIS IS HOW MANY NODES ARE EXPECTED TO BE DELETED IN THE ORIGINAL 'newTree'
+			int countSubTree = subTree.root->count();
+			newTree.remove(toBeRemoved->getKey(), toBeRemoved->getKey());
+			int countAfterDelete = newTree.count();
+
+			//WE PUT THE COUNT OF NODES AFTER DELETION AS THE EXPECTED VALUE
+			//WE TAKE AWAY THE COUNT OF NODES IN THE SUBTREE CREATED USING THE NODE WE WANT TO DELETE. WE TOOK THAT VALUE AWAY FROM THE COUNT OF NODES IN THE ORIGINAL TREE BEFORE 'remove()' WAS CALLED
+			Assert::AreEqual(countAfterDelete, countBeforeDelete - countSubTree);
 		}
 
 		/*
@@ -365,12 +230,16 @@ namespace ADSCA2BinTreeTests
 
 		TEST_METHOD(TestDeleteRootNode)
 		{
+			BinaryTree<size_t, Student> newTree = sampleTree(21);
 
+			int countBeforeDelete = newTree.root->count();
+			newTree.remove(newTree.root->getKey(), newTree.root->getKey());
+			int countAfterDelete = newTree.count();
+
+			//SINCE WE ARE DELETING THE ROOT NODE, THE EXPECTED VALUE IS '0'
+			Assert::AreEqual(0, countAfterDelete);
 		}
 
-		/*
-		Test that the print function works
-		*/
 
 		TEST_METHOD(TestPrint)
 		{

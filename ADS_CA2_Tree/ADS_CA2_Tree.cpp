@@ -14,11 +14,11 @@ using namespace std;
 
 int main()
 {
-	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
+	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//Kacper//OneDrive - Dundalk Institute of Technology//Algs + Data//data_1000.csv");
 
 
 
-	vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
+	//vector<vector<string>> delimitedRows = readDelimitedRows("C://Users//nfeda//source//repos//ADS_2022_ICA2_KW_NF_//ADS_CA2_Tree//data_1000.csv");
 
 	BinaryTree<size_t, Student> newTree;
 
@@ -165,6 +165,42 @@ int main()
 	/*cout << "\nCount before delete: " << newTree.count() << endl;
 	cout << newTree.remove(newTree.root->getKey(), newTree.root->getKey()) << endl;
 	cout << "\nCount after delete: " << newTree.count() << endl;*/
+
+
+
+
+
+	string timeDelimiter = ":";
+
+	//DATE OF BIRTH
+	Date dateOfBirth(delimitedRows[2][5]);
+
+	//LAST LOG ON DATE
+	Date lastLogOnDate(delimitedRows[2][10]);
+
+	//LAST LOG ON TIME
+	string logOnTime = delimitedRows[2][11];
+	unsigned short int hours = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
+	logOnTime = logOnTime.substr(3);
+	unsigned short int minutes = stoi(logOnTime.substr(0, logOnTime.find(timeDelimiter)));
+
+	TimeHHMM lastLogOnTime(hours, minutes);
+
+	//JOINED ON
+	Date joinedOn(delimitedRows[2][12]);
+
+	Student newStudent(delimitedRows[2][0], stoi(delimitedRows[2][1]), delimitedRows[2][2], delimitedRows[2][3], delimitedRows[2][4], dateOfBirth,
+		delimitedRows[2][6], delimitedRows[2][7], delimitedRows[2][8], delimitedRows[2][9], lastLogOnDate, lastLogOnTime, joinedOn, delimitedRows[2][13]);
+
+	StudentKey newKey(newStudent.getUser_id(), newStudent.getFirst_name(), newStudent.getEmail());
+	/*TNode<StudentKey, Student> newNode(newKey, newStudent);*/
+	newTree.insert(newKey.getHash(), newStudent);
+	cout << newKey.getHash() << endl;
+
+
+	cout << newTree.count() << endl;
+
+
 
 
 
